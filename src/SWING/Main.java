@@ -8,8 +8,9 @@ package SWING;
 
 /**
  *
- * @author vanes
+ * @author AndreaQuin
  */  
+
 public class Main {
 
     public static void main(String[] args) {
