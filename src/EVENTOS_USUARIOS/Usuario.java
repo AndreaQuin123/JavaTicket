@@ -13,17 +13,18 @@ public abstract class Usuario {
     
         //ATRIBUTOS
     private String nombre;
-    private String username;
+    private String usuario;
     private String password;
     private int edad;
     
     //CONSTRUCTOR
     
-    public Usuario(String nombre, String username, String password, int edad){
+    public Usuario(String nombre, String usuario, String password, int edad){
         this.nombre = nombre;
-        this.username = username;
+        this.usuario = usuario;
         this.password = password;
         this.edad = edad;
+        
         
     }
     //FUNCIONES GET
@@ -32,11 +33,11 @@ public abstract class Usuario {
         return nombre;
     }
 
-    public String getUser(){
-        return username;
+    public String getUsuario(){
+        return usuario;
     }
     
-    public String getPassword(){
+    public String getContraseña(){
         return password;
     }
 
@@ -49,8 +50,8 @@ public abstract class Usuario {
         this.nombre = nombre;
     }
 
-    public void setUser(String username) {
-        this.username = username;
+    public void setUser(String usuario) {
+        this.usuario = usuario;
     }
 
     public void setPassword(String password) {
@@ -60,4 +61,10 @@ public abstract class Usuario {
     public void setEdad(int edad) {
         this.edad = edad;
     }
+    
+    @Override
+    public String toString(){
+        return "Nombre: "+nombre+" Pass: "+password;
+    }
+    
 }
