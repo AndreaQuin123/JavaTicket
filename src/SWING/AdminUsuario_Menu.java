@@ -98,7 +98,8 @@ public class AdminUsuario_Menu extends javax.swing.JFrame {
             MainMenu_Admin pasar = new MainMenu_Admin(usuariosArray, name, funcionUsuario);
             pasar.setVisible(true);
             this.setVisible(false);
-        } else {
+            
+        } else if (usuarioEleccion== JOptionPane.NO_OPTION){
             JOptionPane.showMessageDialog(null, "Se canceló la operación.");
         }
     }//GEN-LAST:event_RegresarBTNActionPerformed
@@ -114,27 +115,20 @@ public class AdminUsuario_Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_CrearUsuarioBTNMouseMoved
 
     private void EditarUsuarioBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarUsuarioBTNActionPerformed
+        String usuarioViejo = JOptionPane.showInputDialog(null, "Inserte el usuario que desea editar.");
+        String passwordViejo = JOptionPane.showInputDialog(null, "Inserte la contraseña del usuario.");
+        
+        
+        boolean usuario = funcionUsuario.revisarUsuario(usuarioViejo, passwordViejo );
 
-        String usuario = JOptionPane.showInputDialog("Por favor, inserte el usuario que desea editar.");
-
-        for (int indice = 0; indice < usuariosArray.size(); indice++) {
-            if (usuariosArray.get(indice).getUsuario().equals(usuario)) {
-
-                EditarUsuario_Admin pasar = new EditarUsuario_Admin(usuariosArray, "", funcionUsuario, usuario);
-                pasar.setVisible(true);
-                this.setVisible(false);
-                return;
-
-            } else {
-
-                JOptionPane.showMessageDialog(null, "Contraseña incorrecta.");
-                return;
-            }
-
+        if (usuario){
+        EditarUsuario_Admin pasar = new EditarUsuario_Admin(usuariosArray, "", funcionUsuario, usuarioViejo, passwordViejo);
+        pasar.setVisible(true);
+        this.setVisible(false);
         }
     }//GEN-LAST:event_EditarUsuarioBTNActionPerformed
 
-  
+
 
     private void BorrarUsuarioBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorrarUsuarioBTNActionPerformed
         EliminarUsuario_Admin pasar = new EliminarUsuario_Admin(usuariosArray, name, funcionUsuario);

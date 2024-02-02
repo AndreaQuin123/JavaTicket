@@ -44,7 +44,7 @@ public class AdminEvento_Menu extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         EditarEventoBTN.setContentAreaFilled(false);
         EditarEventoBTN.addActionListener(new java.awt.event.ActionListener() {
@@ -52,8 +52,7 @@ public class AdminEvento_Menu extends javax.swing.JFrame {
                 EditarEventoBTNActionPerformed(evt);
             }
         });
-        getContentPane().add(EditarEventoBTN);
-        EditarEventoBTN.setBounds(360, 150, 240, 240);
+        getContentPane().add(EditarEventoBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, 240, 240));
 
         CrearEventoBTN.setContentAreaFilled(false);
         CrearEventoBTN.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -66,8 +65,7 @@ public class AdminEvento_Menu extends javax.swing.JFrame {
                 CrearEventoBTNActionPerformed(evt);
             }
         });
-        getContentPane().add(CrearEventoBTN);
-        CrearEventoBTN.setBounds(100, 150, 250, 240);
+        getContentPane().add(CrearEventoBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 250, 240));
 
         BorrarEventoBTN.setContentAreaFilled(false);
         BorrarEventoBTN.addActionListener(new java.awt.event.ActionListener() {
@@ -75,8 +73,7 @@ public class AdminEvento_Menu extends javax.swing.JFrame {
                 BorrarEventoBTNActionPerformed(evt);
             }
         });
-        getContentPane().add(BorrarEventoBTN);
-        BorrarEventoBTN.setBounds(610, 150, 250, 240);
+        getContentPane().add(BorrarEventoBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 150, 250, 240));
 
         RegresarBTN.setContentAreaFilled(false);
         RegresarBTN.addActionListener(new java.awt.event.ActionListener() {
@@ -84,21 +81,22 @@ public class AdminEvento_Menu extends javax.swing.JFrame {
                 RegresarBTNActionPerformed(evt);
             }
         });
-        getContentPane().add(RegresarBTN);
-        RegresarBTN.setBounds(740, 460, 180, 50);
+        getContentPane().add(RegresarBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 460, 180, 50));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/BG_AdminEventos.png"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 960, 540);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void CrearEventoBTNMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CrearEventoBTNMouseMoved
-        CrearEventoBTN.setToolTipText("Menu para crear usuarios.");
+        CrearEventoBTN.setToolTipText("Menu para crear eventos.");
     }//GEN-LAST:event_CrearEventoBTNMouseMoved
 
     private void CrearEventoBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearEventoBTNActionPerformed
+    CrearEvento_AdminContenido pasar = new CrearEvento_AdminContenido(usuariosArray, name, funcionUsuario);
+    pasar.setVisible(true);
+    this.setVisible(false);
     }//GEN-LAST:event_CrearEventoBTNActionPerformed
 
     private void EditarEventoBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarEventoBTNActionPerformed
@@ -118,8 +116,7 @@ public class AdminEvento_Menu extends javax.swing.JFrame {
             pasar.setVisible(true);
             this.setVisible(false);
             
-        } else {
-            
+        } else if (usuarioEleccion== JOptionPane.NO_OPTION){
             JOptionPane.showMessageDialog(null, "Se canceló la operación.");
         }
     }//GEN-LAST:event_RegresarBTNActionPerformed

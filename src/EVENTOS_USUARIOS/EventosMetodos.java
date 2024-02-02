@@ -4,6 +4,8 @@
  */
 package EVENTOS_USUARIOS;
 
+import java.util.UUID;
+
 /**
  *
  * @author vanes
@@ -11,19 +13,23 @@ package EVENTOS_USUARIOS;
 public class EventosMetodos {
     
     
-    public boolean CrearEvento(){
-        
+    public boolean CrearEvento() {
+
         return false;
-        
+
     }
-    
-    public void EditarEvento(){
-        
+
+    public void EditarEvento() {
+
     }
-    
-        
-    public void EliminarEvento(){
-        
+
+    public void EliminarEvento() {
+
     }
-    
+
+    public static String generateRandomCode() {
+        UUID uuid = UUID.randomUUID();
+        return "EVT"+uuid.toString().toUpperCase().replaceAll("-", "").substring(0, 6);
+    }
+
 }

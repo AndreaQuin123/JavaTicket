@@ -20,17 +20,36 @@ public class EditarUsuario_Admin extends javax.swing.JFrame {
     private String name;
     private UsuariosMetodos funcionUsuario;
     private String usuarioViejo;
+    private String passwordViejo;
+    private String edadViejaSTRING;
+    private int edadViejaINT;
+    private String nombreVieja;
 
-    public EditarUsuario_Admin(ArrayList<Usuario> usuarios, String name, UsuariosMetodos UsuarioFuncion, String usuarioViejo) {
+    public EditarUsuario_Admin(ArrayList<Usuario> usuarios, String name, UsuariosMetodos UsuarioFuncion, String usuarioViejo, String passwordViejo) {
         usuariosArray = usuarios != null ? usuarios : new ArrayList<Usuario>();
         funcionUsuario = UsuarioFuncion != null ? UsuarioFuncion : new UsuariosMetodos();
         this.name = name;
         this.usuarioViejo = usuarioViejo;
+        this.passwordViejo = passwordViejo;
 
         initComponents();
+        
+        setLocationRelativeTo(null);
 
+        for (int indice = 0; indice < usuariosArray.size(); indice++) {
+            if (usuariosArray.get(indice).getUsuario().equals(usuarioViejo)) {
+                int edadViejaINT = usuariosArray.get(indice).getEdad();
+                String nombreVieja = usuariosArray.get(indice).getNombre();
+            }
+        }
+
+        edadViejaSTRING = String.valueOf(edadViejaINT);
+
+        EdadTextbox.setText(edadViejaSTRING);
+        NombreTextbox.setText(nombreVieja);
+        UsernameTextbox.setText(usuarioViejo);
+        PasswordTextbox.setText(passwordViejo);
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -100,18 +119,22 @@ public class EditarUsuario_Admin extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-        
-        
-        
-        
         String nombre = NombreTextbox.getText();
         String usuarioNuevo = UsernameTextbox.getText();
         String passwordNuevo = PasswordTextbox.getText();
         String edad = EdadTextbox.getText();
 
-        int edadINT = Integer.parseInt(edad);
+        try {
+            int edadINT = Integer.parseInt(edad);
 
-        funcionUsuario.editarUsuario(usuarioViejo, nombre, passwordNuevo, edadINT, usuarioNuevo);
+            funcionUsuario.editarUsuario(usuarioViejo, nombre, passwordNuevo, edadINT, usuarioNuevo, passwordNuevo);
+            
+            
+        } catch (NumberFormatException e) {
+
+            JOptionPane.showMessageDialog(null, "La edad debe ser un número entero válido.");
+
+        } 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -121,7 +144,9 @@ public class EditarUsuario_Admin extends javax.swing.JFrame {
             MainMenu_Admin pasar = new MainMenu_Admin(usuariosArray, name, funcionUsuario);
             pasar.setVisible(true);
             this.setVisible(false);
-        } else {
+            
+        } else if (usuarioEleccion == JOptionPane.NO_OPTION){
+            
             JOptionPane.showMessageDialog(null, "Se canceló la operación.");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -156,7 +181,7 @@ public class EditarUsuario_Admin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EditarUsuario_Admin(new ArrayList<Usuario>(), "", new UsuariosMetodos(), "").setVisible(true);
+                new EditarUsuario_Admin(new ArrayList<Usuario>(), "", new UsuariosMetodos(), "", "").setVisible(true);
             }
         });
     }
@@ -171,3 +196,4 @@ public class EditarUsuario_Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
+

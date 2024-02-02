@@ -63,17 +63,19 @@ public abstract class Evento {
     }
 
     public void setDescripcion(String descripcionEvento) {
-        this.descripcionEvento=descripcionEvento;
+        this.descripcionEvento = descripcionEvento;
     }
 
     public void setFecha(LocalDateTime fechaEVento) {
-        this.fechaEvento=fechaEvento;
+        this.fechaEvento = fechaEvento;
     }
 
     public void setMonto(double Monto) {
-        this.montoEvento=montoEvento;
+        this.montoEvento = montoEvento;
     }
 
-    
-    
+    public enum TipoEvento {
+        MUSICAL, RELIGIOSO, DEPORTIVO
+    }
+
 }

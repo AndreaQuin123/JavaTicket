@@ -104,7 +104,7 @@ public class MainMenu_Contenido extends javax.swing.JFrame {
             MainMenu_Admin pasar = new MainMenu_Admin(usuariosArray, name, funcionUsuario);
             pasar.setVisible(true);
             this.setVisible(false);
-        } else {
+        } else if (usuarioEleccion== JOptionPane.NO_OPTION){
             JOptionPane.showMessageDialog(null, "Se canceló la operación.");
         }
 

@@ -126,10 +126,8 @@ public class CrearUsuario_Admin extends javax.swing.JFrame {
             pasar.setVisible(true);
             this.setVisible(false);
 
-        } else {
-
-            JOptionPane.showMessageDialog(null,"Se cancelo la salida de la sesion.");
-
+        } else if (usuarioEleccion== JOptionPane.NO_OPTION){
+            JOptionPane.showMessageDialog(null, "Se canceló la operación.");
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -159,27 +157,31 @@ public class CrearUsuario_Admin extends javax.swing.JFrame {
                 break;
         }
     }
+    
     }//GEN-LAST:event_TipoUsuarioActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-    String nombre = NombreTextbox.getText();
-    String usuario = UsernameTextbox.getText();
-    String password = PasswordTextbox.getText();
-    String edad = EdadTextbox.getText();
-    String selectedItem = (String) TipoUsuario.getSelectedItem();
-    
-    if (nombre.isEmpty() || usuario.isEmpty() || password.isEmpty() || edad.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.");
-        return;
-    }
+        String nombre = NombreTextbox.getText();
+        String usuario = UsernameTextbox.getText();
+        String password = PasswordTextbox.getText();
+        String edad = EdadTextbox.getText();
+        String selectedItem = (String) TipoUsuario.getSelectedItem();
 
-    try {
-        int edadINT = Integer.parseInt(edad);
+        if (nombre.isEmpty() || usuario.isEmpty() || password.isEmpty() || edad.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.");
+            return;
+        }
 
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "La edad debe ser un número entero válido.");
-    }
+        try {
+            int edadINT = Integer.parseInt(edad);
+
+            funcionUsuario.agregarUsuario(nombre, usuario, password, edadINT, selectedItem);
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "La edad debe ser un número entero válido.");
+        }
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

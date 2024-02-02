@@ -65,38 +65,62 @@ public class UsuariosMetodos {
        
     }
 
-    public void editarUsuario(String usuario, String nombre, String password, int edad, String nuevoUsuario) {
+    public boolean revisarUsuario(String usuarioViejo, String passwordViejo) {
 
-        for (int indice = 0; indice < usuariosArray.size(); indice++) {
-            if (usuariosArray.get(indice).getUsuario().equals(usuario)) {
-                if (password.equals(usuariosArray.get(indice).getContraseña())) {
+        boolean usuarioEncontrado = buscarUsuario(usuarioViejo);
 
-                    boolean usuarioBuscado = buscarUsuario(usuario);
+        if (!usuarioEncontrado) {
+            JOptionPane.showMessageDialog(null, "Este usuario no existe.");
+            return false;
 
-                    if (usuarioBuscado) {
-                        JOptionPane.showMessageDialog(null, "Un usuario con ese nombre de usuario ya existe, por favor elegir otro usuario.");
-                        return;
+        } else {
+
+            for (int indice = 0; indice < usuariosArray.size(); indice++) {
+                if (usuariosArray.get(indice).getUsuario().equals(usuarioViejo)) {
+                    if (!usuariosArray.get(indice).getContraseña().equals(passwordViejo)) {
+
+                       JOptionPane.showMessageDialog(null, "La contraseña es incorrecta.");
+                       return false;
+                       
+                    } else {
+                        
+                        return true;
                     }
-
-                    usuariosArray.get(indice).setNombre(nombre);
-                    usuariosArray.get(indice).setUser(nuevoUsuario);
-                    usuariosArray.get(indice).setEdad(edad);
-
-                    JOptionPane.showMessageDialog(null, "El usuario " + usuario + "fue actualizado.");
-
-                } else {
-
-                    JOptionPane.showMessageDialog(null, "Contraseña equivocada.");
-
                 }
-
-            } else {
-
-                JOptionPane.showMessageDialog(null, "Usuario no existe.");
 
             }
         }
 
+        return false;
+    }
+
+    public void editarUsuario(String usuario, String nombre, String password, int edad, String nuevoUsuario, String nuevoPassword) {
+
+        for (int indice = 0; indice < usuariosArray.size(); indice++) {
+
+            boolean usuarioBuscado = buscarUsuario(nuevoUsuario);
+
+            if (usuarioBuscado) {
+                JOptionPane.showMessageDialog(null, "Un usuario con ese nombre de usuario ya existe, por favor elegir otro usuario.");
+                return;
+
+            } else {
+
+                usuariosArray.get(indice).setNombre(nombre);
+                usuariosArray.get(indice).setUser(nuevoUsuario);
+                usuariosArray.get(indice).setPassword(nuevoPassword);
+                usuariosArray.get(indice).setEdad(edad);
+
+                if (usuario != nuevoUsuario) {
+                    JOptionPane.showMessageDialog(null, "El usuario " + usuario + " fue actualizado y se cambio a "+nuevoUsuario+". \nRegresando al menu de usuarios.");
+                    
+                } else {
+                    
+                    JOptionPane.showMessageDialog(null, "El usuario " + usuario + "fue actualizado. \nRegresando al menu de usuarios.");
+                }
+
+            }
+        }
     }
 
     public void eliminarUsuario(String usuario, String password) {

@@ -106,11 +106,9 @@ public class EliminarUsuario_Admin extends javax.swing.JFrame {
             AdminUsuario_Menu pasar = new AdminUsuario_Menu(usuariosArray, name, funcionUsuario);
             pasar.setVisible(true);
             this.setVisible(false);
-
-        } else {
-
-            JOptionPane.showMessageDialog(null,"Se cancelo la salida de la sesion.");
-
+            
+        } else if (usuarioEleccion== JOptionPane.NO_OPTION){
+            JOptionPane.showMessageDialog(null, "Se canceló la operación.");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -41,8 +41,6 @@ public class Login extends javax.swing.JFrame {
         initComponents();
 
         setLocationRelativeTo(null);
-        
-        //MOSTRAR CONTRASEÑA/ESCPNDER CONTRASEÑA BUTTON
     }
 
     /**
@@ -166,13 +164,9 @@ public class Login extends javax.swing.JFrame {
 
     private void SALIRButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SALIRButtonActionPerformed
         
-        Timer timer = new Timer(1000, e -> {
             JOptionPane.showMessageDialog(null, "Saliendo...");
             System.exit(0);
-        });
 
-        timer.setRepeats(false);
-        timer.start();
     }//GEN-LAST:event_SALIRButtonActionPerformed
 
     private void ContraseñaTEXTBOXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContraseñaTEXTBOXActionPerformed
