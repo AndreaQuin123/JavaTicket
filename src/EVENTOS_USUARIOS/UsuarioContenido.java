@@ -19,5 +19,15 @@ public class UsuarioContenido extends Usuario {
             this.listaEventos = new ArrayList<Evento>();
 
         }
-
+    
+    public ArrayList getListaEventos(){
+        return listaEventos;
+    }
+    
+    @Override
+    public String toString() {
+        return super.toString()+"Eventos: " + listaEventos;
+    }
+    
+    
     }

@@ -18,7 +18,14 @@ import java.util.ArrayList;
         public UsuarioAdmin(String nombre, String username, String password, int edad) {
             super(nombre, username, password, edad);
             this.listaEventos = new ArrayList<Evento>();
-        }
-
-        
     }
+
+    public ArrayList getListaEventos() {
+        return listaEventos;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString()+"Eventos: " + listaEventos;
+    }
+}
