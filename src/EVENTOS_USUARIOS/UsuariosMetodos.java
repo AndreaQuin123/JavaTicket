@@ -116,12 +116,14 @@ public class UsuariosMetodos {
                 usuariosArray.get(indice).setPassword(nuevoPassword);
                 usuariosArray.get(indice).setEdad(edad);
 
-                if (usuario != nuevoUsuario) {
+                if (!usuario.equals(nuevoUsuario)) {
                     JOptionPane.showMessageDialog(null, "El usuario " + usuario + " fue actualizado y se cambio a "+nuevoUsuario+". \nRegresando al menu de usuarios.");
-                    
+                    AdminUsuario_Menu pasar = new AdminUsuario_Menu(usuariosArray, "", null);
+                    return;
                 } else {
-                    
                     JOptionPane.showMessageDialog(null, "El usuario " + usuario + "fue actualizado. \nRegresando al menu de usuarios.");
+                    AdminUsuario_Menu pasar = new AdminUsuario_Menu(usuariosArray, "", null);
+                    return;
                 }
 
             }
@@ -137,33 +139,26 @@ public class UsuariosMetodos {
         }
 
         if (usuarioBuscado) {
-
             for (int indice = 0; indice < usuariosArray.size(); indice++) {
-
                 if (usuariosArray.get(indice).getUsuario().equals(usuario)) {
-
                     if (password.equals(usuariosArray.get(indice).getContraseña())) {
-
-                        JOptionPane.showConfirmDialog(null, "Esta seguro que desea eliminar esta cuenta?", "ELIMINAR CUENTA", YES_NO_OPTION);
-
-                        int usuarioEleccion = 0;
+                        int usuarioEleccion = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar esta cuenta?", "ELIMINAR CUENTA", YES_NO_OPTION);
 
                         if (usuarioEleccion == JOptionPane.YES_OPTION) {
-
                             usuariosArray.remove(indice);
-
-                            JOptionPane.showMessageDialog(null, "La cuenta se elimino de manera permanente. Regresando al LOGIN.");
+                            JOptionPane.showMessageDialog(null, "La cuenta se eliminó de manera permanente. Regresando al LOGIN.");
+                            return;
                         } else {
-                            JOptionPane.showMessageDialog(null, "Se cancelo la operacion.");
+                            JOptionPane.showMessageDialog(null, "Se canceló la operación.");
+                        return;
                         }
-
                     } else {
                         JOptionPane.showMessageDialog(null, "La contraseña no es correcta.");
+                        return;
                     }
                 }
-
             }
-        }
+        } 
     }
 
 

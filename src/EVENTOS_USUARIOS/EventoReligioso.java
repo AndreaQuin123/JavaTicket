@@ -12,12 +12,12 @@ import java.time.LocalDateTime;
 public class EventoReligioso extends Evento {
 
     private int cantidad;
-    private double seguro;
+    private final double seguro;
 
     public EventoReligioso(String codigo, String tituloEvento, String descripcionEvento, LocalDateTime fechaEvento, double montoEvento, double seguro, int cantidad) {
         super(codigo, tituloEvento, descripcionEvento, fechaEvento, montoEvento);
         this.cantidad = cantidad;
-        this.seguro = seguro;
+        this.seguro = 2000;
     }
 
     //FUNCIONES GET
