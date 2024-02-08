@@ -26,6 +26,7 @@ public class CalendarioPanel extends javax.swing.JLayeredPane {
         this.mes = mes;
         this.año = año;
         usuariosArray = usuarios != null ? usuarios : new ArrayList<Usuario>();
+        usuariosArray = UsuariosMetodos.getUsuariosArray();
         this.name = name;
         funcionUsuario = UsuarioFuncion != null ? UsuarioFuncion : new UsuariosMetodos();
 

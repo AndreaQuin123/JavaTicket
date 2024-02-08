@@ -38,28 +38,30 @@ public class Main {
                 
                 //CREACION del jlabel
                 JLabel label = new JLabel();
-                
+
                 Icon icon = new ImageIcon("C:\\Users\\vanes\\OneDrive\\Documents\\NetBeansProjects\\JavaTicket\\src\\IMAGENES\\BG_Inicio.gif");
-                
+
                 label.setIcon(icon);
-                
+
                 //CREACION del JFrame
                 JFrame frame = new JFrame();
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.add(label);
                 frame.setSize(580, 350);
                 frame.setLocationRelativeTo(null);
-                
+
                 //TIMER de 3 segundos donde frame se hace visible y luego desaparece cuando se llama el timer
                 Timer timer = new Timer(3000, e -> {
                     frame.setVisible(false);
                     frame.dispose();
-                    
-                    
-                    Login pasar = new Login(new ArrayList<Usuario>(), new UsuariosMetodos());
-                    pasar.setVisible(true);
+
+                    ArrayList<Usuario> usuariosArray = new ArrayList<>();
+                    UsuariosMetodos usuariosMetodos = new UsuariosMetodos();
+                     usuariosArray = UsuariosMetodos.getUsuariosArray();
+
+                    new Login(usuariosArray, usuariosMetodos).setVisible(true);
                 });
-                
+
                 //para que se repita solo una vez
                 timer.setRepeats(false);
                 timer.start();

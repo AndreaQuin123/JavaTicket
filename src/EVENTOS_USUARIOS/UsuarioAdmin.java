@@ -23,6 +23,10 @@ import java.util.ArrayList;
     public ArrayList getListaEventos() {
         return listaEventos;
     }
+    
+    public void AgregarEvento(Evento nuevoEvento){
+        listaEventos.add(nuevoEvento);
+    }
 
     @Override
     public String toString() {

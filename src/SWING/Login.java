@@ -21,7 +21,7 @@ import javax.swing.Timer;
 public class Login extends javax.swing.JFrame {
 
     private Usuario usuarioMetodos;
-    private ArrayList<Usuario> usuariosArray = new ArrayList<>();
+    private ArrayList<Usuario> usuariosArray;
     boolean usuarioEncontrado = false;
      boolean escondido = true;
     private UsuariosMetodos funcionUsuario;
@@ -33,6 +33,7 @@ public class Login extends javax.swing.JFrame {
 
     public Login(ArrayList<Usuario> usuarios, UsuariosMetodos UsuarioFuncion ) {
         usuariosArray = usuarios != null ? usuarios : new ArrayList<Usuario>();
+        usuariosArray = UsuariosMetodos.getUsuariosArray();
         funcionUsuario = UsuarioFuncion != null ? UsuarioFuncion : new UsuariosMetodos();
 
         UsuarioAdmin usuarioADMIN = new UsuarioAdmin(nombreAdmin, usuarioAdmin, passAdmin, edadAdmin);
@@ -132,6 +133,8 @@ public class Login extends javax.swing.JFrame {
 
         for (int indice = 0; indice < usuariosArray.size(); indice++) {
 
+            System.out.println(usuariosArray);
+            
             if (usuariosArray.get(indice).getUsuario().equals(usuario) && usuariosArray.get(indice).getContraseña().equals(pass)) {
 
                 usuarioEncontrado = true;

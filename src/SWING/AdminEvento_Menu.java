@@ -23,6 +23,7 @@ public class AdminEvento_Menu extends javax.swing.JFrame {
  
     public AdminEvento_Menu(ArrayList<Usuario> usuarios, String name, UsuariosMetodos UsuarioFuncion) {
         usuariosArray = usuarios != null ? usuarios : new ArrayList<Usuario>();
+        usuariosArray = UsuariosMetodos.getUsuariosArray();
         this.name = name;
         funcionUsuario = UsuarioFuncion != null ? UsuarioFuncion : new UsuariosMetodos();
         
@@ -95,17 +96,21 @@ public class AdminEvento_Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_CrearEventoBTNMouseMoved
 
     private void CrearEventoBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearEventoBTNActionPerformed
-    CrearEvento_AdminContenido pasar = new CrearEvento_AdminContenido(usuariosArray, name, funcionUsuario);
-    pasar.setVisible(true);
-    this.setVisible(false);
+        CrearEvento_AdminContenido pasar = new CrearEvento_AdminContenido(usuariosArray, name, funcionUsuario);
+        pasar.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_CrearEventoBTNActionPerformed
 
     private void EditarEventoBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarEventoBTNActionPerformed
-        
+        EditarEvento_AdminContenido pasar = new EditarEvento_AdminContenido(usuariosArray, name, funcionUsuario);
+        pasar.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_EditarEventoBTNActionPerformed
 
     private void BorrarEventoBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorrarEventoBTNActionPerformed
-    
+        EliminarEvento_AdminContenido pasar = new EliminarEvento_AdminContenido(usuariosArray, name, funcionUsuario);
+        pasar.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_BorrarEventoBTNActionPerformed
 
     private void RegresarBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegresarBTNActionPerformed

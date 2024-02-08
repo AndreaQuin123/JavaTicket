@@ -16,18 +16,22 @@ public class UsuarioContenido extends Usuario {
 
     public UsuarioContenido(String nombre, String username, String password, int edad) {
         super(nombre, username, password, edad);
-            this.listaEventos = new ArrayList<Evento>();
+        this.listaEventos = new ArrayList<Evento>();
 
-        }
-    
-    public ArrayList getListaEventos(){
+    }
+
+    public ArrayList getListaEventos() {
         return listaEventos;
     }
-    
+
+    public void AgregarEvento(Evento nuevoEvento){
+        listaEventos.add(nuevoEvento);
+    }
+
     @Override
     public String toString() {
-        return super.toString()+"Eventos: " + listaEventos;
+        return super.toString() + "Eventos: " + listaEventos;
     }
-    
-    
+
+
     }

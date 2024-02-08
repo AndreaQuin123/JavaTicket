@@ -61,10 +61,13 @@ public abstract class Usuario {
     public void setEdad(int edad) {
         this.edad = edad;
     }
-    
+
+    public abstract void AgregarEvento(Evento nuevoEvento);
+
     @Override
-    public String toString(){
-        return "Nombre: "+nombre+" Pass: "+password;
+    public String toString() {
+        return "Nombre: " + nombre + " Pass: " + password;
     }
-    
+
+
 }

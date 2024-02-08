@@ -24,6 +24,7 @@ public class MainMenu_Limitado extends javax.swing.JFrame {
  
     public MainMenu_Limitado(ArrayList<Usuario> usuarios, String name, UsuariosMetodos UsuarioFuncion) {
         usuariosArray = usuarios != null ? usuarios : new ArrayList<Usuario>();
+        usuariosArray = UsuariosMetodos.getUsuariosArray();
         this.name = name;
         funcionUsuario = UsuarioFuncion != null ? UsuarioFuncion : new UsuariosMetodos();
         

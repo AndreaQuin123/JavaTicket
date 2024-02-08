@@ -16,13 +16,13 @@ public abstract class Evento {
     
     //ATRIBUTOS
     
-    private int codigo;
+    private String codigo;
     private String tituloEvento;
     private String descripcionEvento;
     private LocalDateTime fechaEvento;
     private double montoEvento;
     
-    public Evento(int codigo, String tituloEvento, String descripcionEvento, LocalDateTime fechaEvento, double montoEvento) {
+    public Evento(String codigo, String tituloEvento, String descripcionEvento, LocalDateTime fechaEvento, double montoEvento) {
 
         this.codigo = codigo;
         this.tituloEvento = tituloEvento;
@@ -33,7 +33,7 @@ public abstract class Evento {
     }
 
     //FUNCIONES GET
-    public int getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
@@ -54,7 +54,7 @@ public abstract class Evento {
     }
 
     //FUNCIONES SET
-    public void setCodigo(int codigo) {
+    public void setCodigo(String codigo) {
         this.codigo=codigo;
     }
 

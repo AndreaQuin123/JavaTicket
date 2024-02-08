@@ -15,10 +15,10 @@ import static javax.swing.JOptionPane.YES_NO_OPTION;
  */
 public class UsuariosMetodos {
 
-    private ArrayList<Usuario> usuariosArray;
+    private static ArrayList<Usuario> usuariosArray = new ArrayList<>();
 
-    public UsuariosMetodos() {
-        this.usuariosArray = new ArrayList<>();
+    public static ArrayList<Usuario> getUsuariosArray() {
+        return usuariosArray;
     }
 
     public boolean buscarUsuario(String usuario) {
@@ -36,6 +36,11 @@ public class UsuariosMetodos {
         boolean usuarioBuscado = buscarUsuario(usuario);
 
         if (usuarioBuscado) {
+            JOptionPane.showMessageDialog(null, "Un usuario con ese nombre de usuario ya existe, por favor elegir otro usuario.");
+            return;
+        }
+        
+        if ("admin".equals(usuario)){
             JOptionPane.showMessageDialog(null, "Un usuario con ese nombre de usuario ya existe, por favor elegir otro usuario.");
             return;
         }
@@ -160,5 +165,6 @@ public class UsuariosMetodos {
             }
         }
     }
+
 
 }

@@ -14,7 +14,7 @@ public class EventoReligioso extends Evento {
     private int cantidad;
     private double seguro;
 
-    public EventoReligioso(int codigo, String tituloEvento, String descripcionEvento, LocalDateTime fechaEvento, double montoEvento, double seguro, int cantidad) {
+    public EventoReligioso(String codigo, String tituloEvento, String descripcionEvento, LocalDateTime fechaEvento, double montoEvento, double seguro, int cantidad) {
         super(codigo, tituloEvento, descripcionEvento, fechaEvento, montoEvento);
         this.cantidad = cantidad;
         this.seguro = seguro;

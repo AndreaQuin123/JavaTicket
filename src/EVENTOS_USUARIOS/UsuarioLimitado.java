@@ -16,4 +16,10 @@ package EVENTOS_USUARIOS;
 
         }
 
+    @Override
+    public void AgregarEvento(Evento nuevoEvento) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+
     }

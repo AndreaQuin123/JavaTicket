@@ -15,7 +15,7 @@ public class EventoMusical extends Evento {
     private String tipoMusical;
     private double seguro;
 
-    public EventoMusical(int codigo, String tituloEvento, String descripcionEvento, LocalDateTime fechaEvento, double montoEvento, double seguro, int cantidad, String tipoMusical) {
+    public EventoMusical(String codigo, String tituloEvento, String descripcionEvento, LocalDateTime fechaEvento, double montoEvento, double seguro, int cantidad, String tipoMusical) {
         super(codigo, tituloEvento, descripcionEvento, fechaEvento, montoEvento);
         this.cantidad = cantidad;
         this.tipoMusical = tipoMusical;
@@ -33,6 +33,10 @@ public class EventoMusical extends Evento {
 
     public int getCantidad() {
         return cantidad;
+    }
+
+    public enum TipoMusical {
+        POP, ROCK,  RAP, CLASICA, REGGEATON, OTRO
     }
 
 }

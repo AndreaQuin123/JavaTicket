@@ -27,6 +27,7 @@ public class EditarUsuario_Admin extends javax.swing.JFrame {
 
     public EditarUsuario_Admin(ArrayList<Usuario> usuarios, String name, UsuariosMetodos UsuarioFuncion, String usuarioViejo, String passwordViejo) {
         usuariosArray = usuarios != null ? usuarios : new ArrayList<Usuario>();
+        usuariosArray = UsuariosMetodos.getUsuariosArray();
         funcionUsuario = UsuarioFuncion != null ? UsuarioFuncion : new UsuariosMetodos();
         this.name = name;
         this.usuarioViejo = usuarioViejo;
