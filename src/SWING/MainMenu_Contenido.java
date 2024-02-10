@@ -23,7 +23,7 @@ public class MainMenu_Contenido extends javax.swing.JFrame {
  
     public MainMenu_Contenido(ArrayList<Usuario> usuarios, String name, UsuariosMetodos UsuarioFuncion) {
         usuariosArray = usuarios != null ? usuarios : new ArrayList<Usuario>();
-        usuariosArray = UsuariosMetodos.getUsuariosArray();
+        usuariosArray = Login.getUsuariosArray();
         this.name = name;
         funcionUsuario = UsuarioFuncion != null ? UsuarioFuncion : new UsuariosMetodos();
         
@@ -61,6 +61,11 @@ public class MainMenu_Contenido extends javax.swing.JFrame {
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, 180, 50));
 
         EVENTOSButton.setContentAreaFilled(false);
+        EVENTOSButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EVENTOSButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(EVENTOSButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 280, 270));
 
         REPORTESButton.setContentAreaFilled(false);
@@ -102,7 +107,7 @@ public class MainMenu_Contenido extends javax.swing.JFrame {
         int usuarioEleccion = JOptionPane.showConfirmDialog(null, "Al regresar al LOGIN, se quitaria su sesion. Esta de acuerdo con regresar?", "REGRESAR AL MENU", YES_NO_OPTION);
        
         if (usuarioEleccion == JOptionPane.YES_OPTION) {
-            MainMenu_Admin pasar = new MainMenu_Admin(usuariosArray, name, funcionUsuario);
+            MainMenu_Contenido pasar = new MainMenu_Contenido(usuariosArray, name, funcionUsuario);
             pasar.setVisible(true);
             this.setVisible(false);
         } else if (usuarioEleccion== JOptionPane.NO_OPTION){
@@ -110,6 +115,12 @@ public class MainMenu_Contenido extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void EVENTOSButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EVENTOSButtonActionPerformed
+        AdminEvento_Menu pasar = new AdminEvento_Menu(usuariosArray, name, funcionUsuario);
+        pasar.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_EVENTOSButtonActionPerformed
 
     /**
      * @param args the command line arguments

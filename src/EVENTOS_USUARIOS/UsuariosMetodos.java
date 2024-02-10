@@ -5,6 +5,7 @@
 package EVENTOS_USUARIOS;
 
 import SWING.AdminUsuario_Menu;
+import SWING.Login;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
@@ -15,11 +16,7 @@ import static javax.swing.JOptionPane.YES_NO_OPTION;
  */
 public class UsuariosMetodos {
 
-    private static ArrayList<Usuario> usuariosArray = new ArrayList<>();
-
-    public static ArrayList<Usuario> getUsuariosArray() {
-        return usuariosArray;
-    }
+    private ArrayList<Usuario> usuariosArray = Login.getUsuariosArray();
 
     public boolean buscarUsuario(String usuario) {
 

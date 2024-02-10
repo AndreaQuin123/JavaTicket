@@ -24,7 +24,7 @@ public class MainMenu_Limitado extends javax.swing.JFrame {
  
     public MainMenu_Limitado(ArrayList<Usuario> usuarios, String name, UsuariosMetodos UsuarioFuncion) {
         usuariosArray = usuarios != null ? usuarios : new ArrayList<Usuario>();
-        usuariosArray = UsuariosMetodos.getUsuariosArray();
+        usuariosArray = Login.getUsuariosArray();
         this.name = name;
         funcionUsuario = UsuarioFuncion != null ? UsuarioFuncion : new UsuariosMetodos();
         
@@ -108,7 +108,7 @@ public class MainMenu_Limitado extends javax.swing.JFrame {
         int usuarioEleccion = JOptionPane.showConfirmDialog(null, "Al regresar al LOGIN, se quitaria su sesion. Esta de acuerdo con regresar?", "REGRESAR AL MENU", YES_NO_OPTION);
 
         if (usuarioEleccion == JOptionPane.YES_OPTION) {
-            MainMenu_Admin pasar = new MainMenu_Admin(usuariosArray, name, funcionUsuario);
+            MainMenu_Limitado pasar = new MainMenu_Limitado(usuariosArray, name, funcionUsuario);
             pasar.setVisible(true);
             this.setVisible(false);
         } else if (usuarioEleccion== JOptionPane.NO_OPTION){

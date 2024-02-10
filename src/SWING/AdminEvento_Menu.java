@@ -4,6 +4,7 @@
  */
 package SWING;
 
+import EVENTOS_USUARIOS.EventosMetodos;
 import EVENTOS_USUARIOS.Usuario;
 import EVENTOS_USUARIOS.UsuariosMetodos;
 import java.util.ArrayList;
@@ -16,18 +17,21 @@ import javax.swing.JOptionPane;
  */
 public class AdminEvento_Menu extends javax.swing.JFrame {
 
- private ArrayList<Usuario> usuariosArray;
- private String name;
+    private ArrayList<Usuario> usuariosArray;
+    private String name;
     private UsuariosMetodos funcionUsuario;
- 
+    private EventosMetodos funcionEvento;
+
  
     public AdminEvento_Menu(ArrayList<Usuario> usuarios, String name, UsuariosMetodos UsuarioFuncion) {
         usuariosArray = usuarios != null ? usuarios : new ArrayList<Usuario>();
-        usuariosArray = UsuariosMetodos.getUsuariosArray();
+        usuariosArray = Login.getUsuariosArray();
         this.name = name;
         funcionUsuario = UsuarioFuncion != null ? UsuarioFuncion : new UsuariosMetodos();
         
         initComponents();
+        
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -96,7 +100,7 @@ public class AdminEvento_Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_CrearEventoBTNMouseMoved
 
     private void CrearEventoBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearEventoBTNActionPerformed
-        CrearEvento_AdminContenido pasar = new CrearEvento_AdminContenido(usuariosArray, name, funcionUsuario);
+        CrearEvento_AdminContenido pasar = new CrearEvento_AdminContenido(usuariosArray, name, funcionUsuario, funcionEvento);
         pasar.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_CrearEventoBTNActionPerformed

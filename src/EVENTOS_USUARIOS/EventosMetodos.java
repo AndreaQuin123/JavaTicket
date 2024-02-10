@@ -4,6 +4,7 @@
  */
 package EVENTOS_USUARIOS;
 
+import SWING.Login;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,18 +16,23 @@ import javax.swing.JOptionPane;
  * @author vanes
  */
 public class EventosMetodos {
+    
+    private ArrayList<Usuario> usuariosArray = Login.getUsuariosArray();
 
-    private ArrayList<Usuario> usuariosArray;
+    public EventosMetodos() {
+        
+    }
 
     public boolean CrearEventoDeportivo(String codigo, String titulo, String desc, LocalDateTime fecha, double monto, String name, String equipo1, String equipo2, int cantidad, String TipoDeporte) {
-
+       
+        System.out.println(usuariosArray);
         for (int indice = 0; indice < usuariosArray.size(); indice++) {
-            if (usuariosArray.get(indice).getNombre().equals(name)) {
-                if (cantidad<=20000) {
-                EventoDeportivo nuevoEvento = new EventoDeportivo(codigo, titulo, desc, fecha, monto, equipo1, equipo2, cantidad, TipoDeporte);
-                usuariosArray.get(indice).AgregarEvento(nuevoEvento);
-                JOptionPane.showMessageDialog(null, "Se agrego un nuevo evento DEPORTIVO de manera exitosa!");
-                return true;
+            if (usuariosArray.get(indice).getUsuario().equals(name)) {
+                if (cantidad < 20000) {
+                    EventoDeportivo nuevoEvento = new EventoDeportivo(codigo, titulo, desc, fecha, monto, equipo1, equipo2, cantidad, TipoDeporte);
+                    usuariosArray.get(indice).AgregarEvento(nuevoEvento);
+                    JOptionPane.showMessageDialog(null, "Se agregó un nuevo evento DEPORTIVO de manera exitosa!");
+                    return true;
                 } else {
                     JOptionPane.showMessageDialog(null, "La cantidad es muy alta para un evento DEPORTIVO.");
                     return false;
@@ -39,9 +45,9 @@ public class EventosMetodos {
     public boolean CrearEventoReligioso(String codigo, String titulo, String desc, LocalDateTime fecha, double monto, String name, double seguro, int cantidad) {
         for (int indice = 0; indice < usuariosArray.size(); indice++) {
             if (usuariosArray.get(indice).getNombre().equals(name)) {
-                 if (cantidad<=20000) {
-                EventoReligioso nuevoEvento = new EventoReligioso(codigo, titulo, desc, fecha, monto, seguro, cantidad);
-                usuariosArray.get(indice).AgregarEvento(nuevoEvento);
+                if (cantidad < 30000) {
+                    EventoReligioso nuevoEvento = new EventoReligioso(codigo, titulo, desc, fecha, monto, seguro, cantidad);
+                    usuariosArray.get(indice).AgregarEvento(nuevoEvento);
                 JOptionPane.showMessageDialog(null, "Se agrego un nuevo evento RELIGIOSO de manera exitosa!");
                 return true;
                  } else {
@@ -58,7 +64,7 @@ public class EventosMetodos {
     public boolean CrearEventoMusical(String codigo, String titulo, String desc, LocalDateTime fecha, double monto, String name, double seguro, int cantidad, String tipoMusical) {
         for (int indice = 0; indice < usuariosArray.size(); indice++) {
             if (usuariosArray.get(indice).getNombre().equals(name)) {
-                if (cantidad<=20000) {
+                if (cantidad<25000) {
                 EventoMusical nuevoEvento = new EventoMusical(codigo, titulo, desc, fecha, monto, seguro, cantidad, tipoMusical);
                 usuariosArray.get(indice).AgregarEvento(nuevoEvento);
                 JOptionPane.showMessageDialog(null, "Se agrego un nuevo evento MUSICAL de manera exitosa!");

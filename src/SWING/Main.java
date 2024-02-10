@@ -57,7 +57,7 @@ public class Main {
 
                     ArrayList<Usuario> usuariosArray = new ArrayList<>();
                     UsuariosMetodos usuariosMetodos = new UsuariosMetodos();
-                     usuariosArray = UsuariosMetodos.getUsuariosArray();
+                     usuariosArray = Login.getUsuariosArray();
 
                     new Login(usuariosArray, usuariosMetodos).setVisible(true);
                 });

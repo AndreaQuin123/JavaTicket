@@ -27,7 +27,7 @@ public class EditarUsuario_Admin extends javax.swing.JFrame {
 
     public EditarUsuario_Admin(ArrayList<Usuario> usuarios, String name, UsuariosMetodos UsuarioFuncion, String usuarioViejo, String passwordViejo) {
         usuariosArray = usuarios != null ? usuarios : new ArrayList<Usuario>();
-        usuariosArray = UsuariosMetodos.getUsuariosArray();
+        usuariosArray = Login.getUsuariosArray();
         funcionUsuario = UsuarioFuncion != null ? UsuarioFuncion : new UsuariosMetodos();
         this.name = name;
         this.usuarioViejo = usuarioViejo;
@@ -39,6 +39,7 @@ public class EditarUsuario_Admin extends javax.swing.JFrame {
 
         for (int indice = 0; indice < usuariosArray.size(); indice++) {
             if (usuariosArray.get(indice).getUsuario().equals(usuarioViejo)) {
+                
                 int edadViejaINT = usuariosArray.get(indice).getEdad();
                 String nombreVieja = usuariosArray.get(indice).getNombre();
             }
@@ -90,6 +91,11 @@ public class EditarUsuario_Admin extends javax.swing.JFrame {
         EdadTextbox.setBackground(new java.awt.Color(245, 245, 245));
         EdadTextbox.setForeground(new java.awt.Color(0, 0, 0));
         EdadTextbox.setBorder(null);
+        EdadTextbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EdadTextboxActionPerformed(evt);
+            }
+        });
         getContentPane().add(EdadTextbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 360, 230, 40));
 
         jButton1.setContentAreaFilled(false);
@@ -151,6 +157,10 @@ public class EditarUsuario_Admin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Se canceló la operación.");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void EdadTextboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EdadTextboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EdadTextboxActionPerformed
 
     /**
      * @param args the command line arguments

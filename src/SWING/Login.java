@@ -20,8 +20,9 @@ import javax.swing.Timer;
  */
 public class Login extends javax.swing.JFrame {
 
+
+
     private Usuario usuarioMetodos;
-    private ArrayList<Usuario> usuariosArray;
     boolean usuarioEncontrado = false;
      boolean escondido = true;
     private UsuariosMetodos funcionUsuario;
@@ -30,14 +31,18 @@ public class Login extends javax.swing.JFrame {
     String usuarioAdmin = "admin";
     String passAdmin = "supersecreto";
     int edadAdmin = 19;
+    
+    
 
     public Login(ArrayList<Usuario> usuarios, UsuariosMetodos UsuarioFuncion ) {
         usuariosArray = usuarios != null ? usuarios : new ArrayList<Usuario>();
-        usuariosArray = UsuariosMetodos.getUsuariosArray();
+        usuariosArray = Login.getUsuariosArray();
         funcionUsuario = UsuarioFuncion != null ? UsuarioFuncion : new UsuariosMetodos();
 
-        UsuarioAdmin usuarioADMIN = new UsuarioAdmin(nombreAdmin, usuarioAdmin, passAdmin, edadAdmin);
-        usuariosArray.add(usuarioADMIN);
+        if (usuariosArray.isEmpty()) {
+            UsuarioAdmin usuarioADMIN = new UsuarioAdmin(nombreAdmin, usuarioAdmin, passAdmin, edadAdmin);
+            usuariosArray.add(usuarioADMIN);
+        }
 
         initComponents();
 
@@ -47,8 +52,6 @@ public class Login extends javax.swing.JFrame {
     /**
      * WARNING: Do NOT modify this code.
      */
-    
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -125,6 +128,12 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private static ArrayList<Usuario> usuariosArray = new ArrayList<>();
+
+    public static ArrayList<Usuario> getUsuariosArray() {
+        return usuariosArray;
+    }
 
     private void LOGINButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LOGINButtonMouseClicked
 

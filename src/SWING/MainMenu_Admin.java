@@ -22,8 +22,8 @@ public class MainMenu_Admin extends javax.swing.JFrame {
  
  
     public MainMenu_Admin(ArrayList<Usuario> usuarios, String name, UsuariosMetodos UsuarioFuncion) {
-        usuariosArray = usuarios != null ? usuarios : new ArrayList<Usuario>();
-        usuariosArray = UsuariosMetodos.getUsuariosArray();
+        usuariosArray = usuarios != null ? usuarios : new ArrayList<>();
+        usuariosArray = Login.getUsuariosArray();
         this.name = name;
         funcionUsuario = UsuarioFuncion != null ? UsuarioFuncion : new UsuariosMetodos();
         
@@ -98,6 +98,11 @@ public class MainMenu_Admin extends javax.swing.JFrame {
         getContentPane().add(USUARIOSButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 280, 270));
 
         EVENTOSButton.setContentAreaFilled(false);
+        EVENTOSButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EVENTOSButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(EVENTOSButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 280, 270));
 
         REPORTESButton.setContentAreaFilled(false);
@@ -132,6 +137,12 @@ public class MainMenu_Admin extends javax.swing.JFrame {
         pasar.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_USUARIOSButtonActionPerformed
+
+    private void EVENTOSButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EVENTOSButtonActionPerformed
+        AdminEvento_Menu pasar = new AdminEvento_Menu(usuariosArray, name, funcionUsuario);
+        pasar.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_EVENTOSButtonActionPerformed
 
     /**
      * @param args the command line arguments

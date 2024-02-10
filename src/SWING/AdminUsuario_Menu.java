@@ -22,7 +22,7 @@ public class AdminUsuario_Menu extends javax.swing.JFrame {
 
     public AdminUsuario_Menu(ArrayList<Usuario> usuarios, String name, UsuariosMetodos UsuarioFuncion) {
         usuariosArray = usuarios != null ? usuarios : new ArrayList<Usuario>();
-        usuariosArray = UsuariosMetodos.getUsuariosArray();
+        usuariosArray = Login.getUsuariosArray();
         this.name = name;
         funcionUsuario = UsuarioFuncion != null ? UsuarioFuncion : new UsuariosMetodos();
 

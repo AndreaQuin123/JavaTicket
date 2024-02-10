@@ -3,6 +3,7 @@ package SWING.CALENDARIO;
 
 import EVENTOS_USUARIOS.Usuario;
 import EVENTOS_USUARIOS.UsuariosMetodos;
+import SWING.Login;
 import java.awt.Component;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class CalendarCustom extends javax.swing.JLayeredPane {
         this.mes = mes;
         this.año = año;
         usuariosArray = usuarios != null ? usuarios : new ArrayList<Usuario>();
-        usuariosArray = UsuariosMetodos.getUsuariosArray();
+        usuariosArray = Login.getUsuariosArray();
         this.name = name;
         funcionUsuario = UsuarioFuncion != null ? UsuarioFuncion : new UsuariosMetodos();
     

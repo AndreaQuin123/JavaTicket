@@ -14,12 +14,19 @@ import EVENTOS_USUARIOS.EventoMusical.TipoMusical;
 import EVENTOS_USUARIOS.Usuario;
 import EVENTOS_USUARIOS.UsuariosMetodos;
 import SWING.CALENDARIO.CalendarioPanel;
+import java.awt.GridLayout;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -34,11 +41,12 @@ public class CrearEvento_AdminContenido extends javax.swing.JFrame {
     private String Uniquecode;
     public static Date selectedDate;
 
-    public CrearEvento_AdminContenido(ArrayList<Usuario> usuarios, String name, UsuariosMetodos UsuarioFuncion) {
+    public CrearEvento_AdminContenido(ArrayList<Usuario> usuarios, String name, UsuariosMetodos UsuarioFuncion, EventosMetodos EventoFuncion) {
         usuariosArray = usuarios != null ? usuarios : new ArrayList<Usuario>();
-        usuariosArray = UsuariosMetodos.getUsuariosArray();
+        usuariosArray = Login.getUsuariosArray();
         this.name = name;
         funcionUsuario = UsuarioFuncion != null ? UsuarioFuncion : new UsuariosMetodos();
+        funcionEvento = EventoFuncion != null ? EventoFuncion : new EventosMetodos();
 
         initComponents();
         EventoDeportivo.setVisible(false);
@@ -57,21 +65,6 @@ public class CrearEvento_AdminContenido extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        EventoReligioso = new javax.swing.JPanel();
-        ReligiosoHide = new javax.swing.JButton();
-        CANTIDADLABEL2 = new javax.swing.JLabel();
-        CantidadTextbox3 = new javax.swing.JTextField();
-        SeguroTextbox1 = new javax.swing.JTextField();
-        SEGUROLABEL3 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        EventoMusical = new javax.swing.JPanel();
-        MusicaJcombo = new javax.swing.JComboBox();
-        MusicalHide = new javax.swing.JButton();
-        CantidadTextbox1 = new javax.swing.JTextField();
-        SeguroTextbox = new javax.swing.JTextField();
-        CANTIDADLABEL1 = new javax.swing.JLabel();
-        SEGUROLABEL = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         EventoDeportivo = new javax.swing.JPanel();
         jComboBox2 = new javax.swing.JComboBox<>();
         CantidadTextbox = new javax.swing.JTextField();
@@ -82,6 +75,21 @@ public class CrearEvento_AdminContenido extends javax.swing.JFrame {
         DeportivoHide = new javax.swing.JButton();
         CANTIDADLABEL = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        EventoMusical = new javax.swing.JPanel();
+        MusicaJcombo = new javax.swing.JComboBox<>();
+        MusicalHide = new javax.swing.JButton();
+        CantidadTextbox1 = new javax.swing.JTextField();
+        SeguroTextbox = new javax.swing.JTextField();
+        CANTIDADLABEL1 = new javax.swing.JLabel();
+        SEGUROLABEL = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        EventoReligioso = new javax.swing.JPanel();
+        ReligiosoHide = new javax.swing.JButton();
+        CANTIDADLABEL2 = new javax.swing.JLabel();
+        CantidadTextbox3 = new javax.swing.JTextField();
+        SeguroTextbox1 = new javax.swing.JTextField();
+        SEGUROLABEL3 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         DetallesBTN = new javax.swing.JButton();
         CrearBTN = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -107,64 +115,88 @@ public class CrearEvento_AdminContenido extends javax.swing.JFrame {
         });
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(478, 310, 30, 40));
 
-        EventoReligioso.setBackground(new java.awt.Color(136, 140, 186));
-        EventoReligioso.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        EventoDeportivo.setBackground(new java.awt.Color(136, 140, 186));
+        EventoDeportivo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        ReligiosoHide.setBackground(new java.awt.Color(231, 201, 76));
-        ReligiosoHide.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        ReligiosoHide.setForeground(new java.awt.Color(40, 60, 100));
-        ReligiosoHide.setContentAreaFilled(false);
-        ReligiosoHide.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox2.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBox2.setForeground(new java.awt.Color(0, 0, 0));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(TipoDeporte.values()));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ReligiosoHideActionPerformed(evt);
+                jComboBox2ActionPerformed(evt);
             }
         });
-        EventoReligioso.add(ReligiosoHide, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, 190, 50));
+        EventoDeportivo.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 300, 40));
 
-        CANTIDADLABEL2.setBackground(new java.awt.Color(255, 255, 255));
-        CANTIDADLABEL2.setFont(new java.awt.Font("Leelawadee", 1, 18)); // NOI18N
-        CANTIDADLABEL2.setForeground(new java.awt.Color(255, 255, 255));
-        CANTIDADLABEL2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        CANTIDADLABEL2.setText("CANTIDAD");
-        EventoReligioso.add(CANTIDADLABEL2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 100, 50));
+        CantidadTextbox.setBackground(new java.awt.Color(255, 255, 255));
+        CantidadTextbox.setForeground(new java.awt.Color(0, 0, 0));
+        CantidadTextbox.setText("Cantidad");
+        CantidadTextbox.setBorder(null);
+        CantidadTextbox.setOpaque(true);
+        EventoDeportivo.add(CantidadTextbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, 210, 30));
 
-        CantidadTextbox3.setBackground(new java.awt.Color(255, 255, 255));
-        CantidadTextbox3.setForeground(new java.awt.Color(0, 0, 0));
-        CantidadTextbox3.setText("Cantidad");
-        CantidadTextbox3.setBorder(null);
-        CantidadTextbox3.setOpaque(true);
-        CantidadTextbox3.addActionListener(new java.awt.event.ActionListener() {
+        Equipo1Textbox.setBackground(new java.awt.Color(255, 255, 255));
+        Equipo1Textbox.setForeground(new java.awt.Color(0, 0, 0));
+        Equipo1Textbox.setText("Equipo 1");
+        Equipo1Textbox.setBorder(null);
+        Equipo1Textbox.setOpaque(true);
+        Equipo1Textbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CantidadTextbox3ActionPerformed(evt);
+                Equipo1TextboxActionPerformed(evt);
             }
         });
-        EventoReligioso.add(CantidadTextbox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 210, 40));
+        EventoDeportivo.add(Equipo1Textbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 210, 40));
 
-        SeguroTextbox1.setBackground(new java.awt.Color(255, 255, 255));
-        SeguroTextbox1.setForeground(new java.awt.Color(0, 0, 0));
-        SeguroTextbox1.setText("Seguro");
-        SeguroTextbox1.setBorder(null);
-        SeguroTextbox1.setOpaque(true);
-        EventoReligioso.add(SeguroTextbox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 210, 30));
+        EQUIPO1LABEL.setBackground(new java.awt.Color(255, 255, 255));
+        EQUIPO1LABEL.setFont(new java.awt.Font("Leelawadee", 1, 18)); // NOI18N
+        EQUIPO1LABEL.setForeground(new java.awt.Color(255, 255, 255));
+        EQUIPO1LABEL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        EQUIPO1LABEL.setText("EQUIPO 1");
+        EventoDeportivo.add(EQUIPO1LABEL, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 100, 50));
 
-        SEGUROLABEL3.setBackground(new java.awt.Color(255, 255, 255));
-        SEGUROLABEL3.setFont(new java.awt.Font("Leelawadee", 1, 18)); // NOI18N
-        SEGUROLABEL3.setForeground(new java.awt.Color(255, 255, 255));
-        SEGUROLABEL3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        SEGUROLABEL3.setText("SEGURO");
-        EventoReligioso.add(SEGUROLABEL3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 100, 50));
+        EQUIPO2LABEL.setBackground(new java.awt.Color(255, 255, 255));
+        EQUIPO2LABEL.setFont(new java.awt.Font("Leelawadee", 1, 18)); // NOI18N
+        EQUIPO2LABEL.setForeground(new java.awt.Color(255, 255, 255));
+        EQUIPO2LABEL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        EQUIPO2LABEL.setText("EQUIPO 2");
+        EventoDeportivo.add(EQUIPO2LABEL, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 100, 50));
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/PanelExtra_EventoCreacionReligioso.png"))); // NOI18N
-        EventoReligioso.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 410, 540));
+        Equipo2Textbox.setBackground(new java.awt.Color(255, 255, 255));
+        Equipo2Textbox.setForeground(new java.awt.Color(0, 0, 0));
+        Equipo2Textbox.setText("Equipo 2");
+        Equipo2Textbox.setBorder(null);
+        Equipo2Textbox.setOpaque(true);
+        EventoDeportivo.add(Equipo2Textbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 210, 30));
 
-        getContentPane().add(EventoReligioso, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 0, 390, 540));
+        DeportivoHide.setBackground(new java.awt.Color(231, 201, 76));
+        DeportivoHide.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        DeportivoHide.setForeground(new java.awt.Color(40, 60, 100));
+        DeportivoHide.setContentAreaFilled(false);
+        DeportivoHide.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeportivoHideActionPerformed(evt);
+            }
+        });
+        EventoDeportivo.add(DeportivoHide, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 440, 190, 50));
+
+        CANTIDADLABEL.setBackground(new java.awt.Color(255, 255, 255));
+        CANTIDADLABEL.setFont(new java.awt.Font("Leelawadee", 1, 18)); // NOI18N
+        CANTIDADLABEL.setForeground(new java.awt.Color(255, 255, 255));
+        CANTIDADLABEL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        CANTIDADLABEL.setText("CANTIDAD");
+        EventoDeportivo.add(CANTIDADLABEL, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 100, 50));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/PanelExtra_EventoCreacion.png"))); // NOI18N
+        EventoDeportivo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 410, 540));
+
+        getContentPane().add(EventoDeportivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 0, 390, 540));
 
         EventoMusical.setBackground(new java.awt.Color(136, 140, 186));
         EventoMusical.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         MusicaJcombo.setBackground(new java.awt.Color(255, 255, 255));
         MusicaJcombo.setForeground(new java.awt.Color(0, 0, 0));
-        MusicaJcombo.setModel(new javax.swing.DefaultComboBoxModel<>(TipoDeporte.values()));
+        MusicaJcombo.setModel(new javax.swing.DefaultComboBoxModel<>(TipoMusical.values()));
         MusicaJcombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MusicaJcomboActionPerformed(evt);
@@ -221,82 +253,57 @@ public class CrearEvento_AdminContenido extends javax.swing.JFrame {
 
         getContentPane().add(EventoMusical, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 0, 390, 540));
 
-        EventoDeportivo.setBackground(new java.awt.Color(136, 140, 186));
-        EventoDeportivo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        EventoReligioso.setBackground(new java.awt.Color(136, 140, 186));
+        EventoReligioso.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jComboBox2.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox2.setForeground(new java.awt.Color(0, 0, 0));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(TipoDeporte.values()));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        ReligiosoHide.setBackground(new java.awt.Color(231, 201, 76));
+        ReligiosoHide.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        ReligiosoHide.setForeground(new java.awt.Color(40, 60, 100));
+        ReligiosoHide.setContentAreaFilled(false);
+        ReligiosoHide.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                ReligiosoHideActionPerformed(evt);
             }
         });
-        EventoDeportivo.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 300, 40));
+        EventoReligioso.add(ReligiosoHide, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, 190, 50));
 
-        CantidadTextbox.setEditable(false);
-        CantidadTextbox.setBackground(new java.awt.Color(255, 255, 255));
-        CantidadTextbox.setForeground(new java.awt.Color(0, 0, 0));
-        CantidadTextbox.setText("Cantidad");
-        CantidadTextbox.setBorder(null);
-        CantidadTextbox.setOpaque(true);
-        EventoDeportivo.add(CantidadTextbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, 210, 30));
+        CANTIDADLABEL2.setBackground(new java.awt.Color(255, 255, 255));
+        CANTIDADLABEL2.setFont(new java.awt.Font("Leelawadee", 1, 18)); // NOI18N
+        CANTIDADLABEL2.setForeground(new java.awt.Color(255, 255, 255));
+        CANTIDADLABEL2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        CANTIDADLABEL2.setText("CANTIDAD");
+        EventoReligioso.add(CANTIDADLABEL2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 100, 50));
 
-        Equipo1Textbox.setBackground(new java.awt.Color(255, 255, 255));
-        Equipo1Textbox.setForeground(new java.awt.Color(0, 0, 0));
-        Equipo1Textbox.setText("Equipo 1");
-        Equipo1Textbox.setBorder(null);
-        Equipo1Textbox.setOpaque(true);
-        Equipo1Textbox.addActionListener(new java.awt.event.ActionListener() {
+        CantidadTextbox3.setBackground(new java.awt.Color(255, 255, 255));
+        CantidadTextbox3.setForeground(new java.awt.Color(0, 0, 0));
+        CantidadTextbox3.setText("Cantidad");
+        CantidadTextbox3.setBorder(null);
+        CantidadTextbox3.setOpaque(true);
+        CantidadTextbox3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Equipo1TextboxActionPerformed(evt);
+                CantidadTextbox3ActionPerformed(evt);
             }
         });
-        EventoDeportivo.add(Equipo1Textbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 210, 40));
+        EventoReligioso.add(CantidadTextbox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 210, 30));
 
-        EQUIPO1LABEL.setBackground(new java.awt.Color(255, 255, 255));
-        EQUIPO1LABEL.setFont(new java.awt.Font("Leelawadee", 1, 18)); // NOI18N
-        EQUIPO1LABEL.setForeground(new java.awt.Color(255, 255, 255));
-        EQUIPO1LABEL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        EQUIPO1LABEL.setText("EQUIPO 1");
-        EventoDeportivo.add(EQUIPO1LABEL, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 100, 50));
+        SeguroTextbox1.setBackground(new java.awt.Color(255, 255, 255));
+        SeguroTextbox1.setForeground(new java.awt.Color(0, 0, 0));
+        SeguroTextbox1.setText("Seguro");
+        SeguroTextbox1.setBorder(null);
+        SeguroTextbox1.setOpaque(true);
+        EventoReligioso.add(SeguroTextbox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 210, 30));
 
-        EQUIPO2LABEL.setBackground(new java.awt.Color(255, 255, 255));
-        EQUIPO2LABEL.setFont(new java.awt.Font("Leelawadee", 1, 18)); // NOI18N
-        EQUIPO2LABEL.setForeground(new java.awt.Color(255, 255, 255));
-        EQUIPO2LABEL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        EQUIPO2LABEL.setText("EQUIPO 2");
-        EventoDeportivo.add(EQUIPO2LABEL, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 100, 50));
+        SEGUROLABEL3.setBackground(new java.awt.Color(255, 255, 255));
+        SEGUROLABEL3.setFont(new java.awt.Font("Leelawadee", 1, 18)); // NOI18N
+        SEGUROLABEL3.setForeground(new java.awt.Color(255, 255, 255));
+        SEGUROLABEL3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        SEGUROLABEL3.setText("SEGURO");
+        EventoReligioso.add(SEGUROLABEL3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 100, 50));
 
-        Equipo2Textbox.setBackground(new java.awt.Color(255, 255, 255));
-        Equipo2Textbox.setForeground(new java.awt.Color(0, 0, 0));
-        Equipo2Textbox.setText("Equipo 2");
-        Equipo2Textbox.setBorder(null);
-        Equipo2Textbox.setOpaque(true);
-        EventoDeportivo.add(Equipo2Textbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 210, 30));
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/PanelExtra_EventoCreacionReligioso.png"))); // NOI18N
+        EventoReligioso.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 410, 540));
 
-        DeportivoHide.setBackground(new java.awt.Color(231, 201, 76));
-        DeportivoHide.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        DeportivoHide.setForeground(new java.awt.Color(40, 60, 100));
-        DeportivoHide.setContentAreaFilled(false);
-        DeportivoHide.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DeportivoHideActionPerformed(evt);
-            }
-        });
-        EventoDeportivo.add(DeportivoHide, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 440, 190, 50));
-
-        CANTIDADLABEL.setBackground(new java.awt.Color(255, 255, 255));
-        CANTIDADLABEL.setFont(new java.awt.Font("Leelawadee", 1, 18)); // NOI18N
-        CANTIDADLABEL.setForeground(new java.awt.Color(255, 255, 255));
-        CANTIDADLABEL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        CANTIDADLABEL.setText("CANTIDAD");
-        EventoDeportivo.add(CANTIDADLABEL, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 100, 50));
-
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/PanelExtra_EventoCreacion.png"))); // NOI18N
-        EventoDeportivo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 410, 540));
-
-        getContentPane().add(EventoDeportivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 0, 390, 540));
+        getContentPane().add(EventoReligioso, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 0, 390, 540));
 
         DetallesBTN.setBackground(new java.awt.Color(231, 201, 76));
         DetallesBTN.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -349,7 +356,7 @@ public class CrearEvento_AdminContenido extends javax.swing.JFrame {
         FechaTextbox.setBackground(new java.awt.Color(245, 245, 245));
         FechaTextbox.setForeground(new java.awt.Color(0, 0, 0));
         FechaTextbox.setBorder(null);
-        getContentPane().add(FechaTextbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, 220, 40));
+        getContentPane().add(FechaTextbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, 190, 40));
 
         TituloTextbox.setBackground(new java.awt.Color(245, 245, 245));
         TituloTextbox.setForeground(new java.awt.Color(0, 0, 0));
@@ -468,60 +475,120 @@ public class CrearEvento_AdminContenido extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-       TipoDeporte selectedItem = (TipoDeporte) jComboBox2.getSelectedItem();
 
-        if (selectedItem != null) {
-
-            switch (selectedItem) {
-
-                case FUTBOL:
-
-                    break;
-
-                case TENIS:
-
-                    break;
-
-                case RUGBY:
-
-                    break;
-
-                case BASEBALL:
-
-                    break;
-
-                default:
-                    break;
-            }
-        }
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void CrearBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearBTNActionPerformed
 
-        //DEPORTE
         TipoEvento TipoEvento = (TipoEvento) jComboBox1.getSelectedItem();
-        TipoDeporte TipoDeporte = (TipoDeporte) jComboBox2.getSelectedItem();
+
+        try {
+            switch (TipoEvento) {
+                case DEPORTIVO:
+                    handleDeportivoEvent();
+                    break;
+                case MUSICAL:
+                    handleMusicalEvent();
+                    break;
+                case RELIGIOSO:
+                    handleReligiosoEvent();
+                    break;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error: Ingrese valores numéricos válidos para monto y cantidad.");
+        }
+    }//GEN-LAST:event_CrearBTNActionPerformed
+
+    private void handleDeportivoEvent() {
+
+        String titulo = TituloTextbox.getText();
+        String codigo = CodigoTextbox.getText();
+        String fecha = FechaTextbox.getText();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd/MM/uu HH:mm", Locale.ENGLISH);
+        LocalDateTime fechaDate = LocalDateTime.parse(fecha + " 00:00", formatter);
+
+        String monto = MontoTextbox.getText();
+        String desc = DescripcionTextbox.getText();
+
+        if (codigo.isEmpty() || monto.isEmpty() || fecha.isEmpty() || desc.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.");
+            return;
+        }
+
+        TipoDeporte tipoDeporte = (TipoDeporte) jComboBox2.getSelectedItem();
         String equipo1 = Equipo1Textbox.getText();
         String equipo2 = Equipo2Textbox.getText();
         String cantidad = CantidadTextbox.getText();
 
-        //MUSICAL
-        TipoMusical TipoMusical = (TipoMusical) MusicaJcombo.getSelectedItem();
-        String cantidadMusica = CantidadTextbox1.getText();
-        String seguroMusica = SeguroTextbox.getText();
+        try {
+            double montoDouble = Double.parseDouble(monto);
+            int cantidadInt = Integer.parseInt(cantidad);
+           
+            funcionEvento.CrearEventoDeportivo(codigo, titulo, desc, fechaDate, montoDouble, name, equipo1, equipo2, cantidadInt, tipoDeporte.toString());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error: Ingrese valores numéricos válidos para monto y cantidad.");
+        }
 
-        //RELIGIOSO
-        String cantidadReligioso = CantidadTextbox3.getText();
-        String seguroReligioso = SeguroTextbox1.getText();
+    }
 
-        //EN COMUN
+    private void handleReligiosoEvent() {
+
+        String cantidadReligioso = null;
+        String seguroReligioso = null;
+
         String titulo = TituloTextbox.getText();
         String codigo = CodigoTextbox.getText();
         String fecha = FechaTextbox.getText();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd/MM/uu HH:mm", Locale.ENGLISH);
+        LocalDateTime fechaDate = LocalDateTime.parse(fecha + " 00:00", formatter);
+
         String monto = MontoTextbox.getText();
         String desc = DescripcionTextbox.getText();
         
-        LocalDateTime fechaDate = LocalDateTime.parse(fecha);
+               if (codigo.isEmpty() || monto.isEmpty() || fecha.isEmpty() || desc.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.");
+            return;
+        }
+
+        if (CantidadTextbox3 != null && SeguroTextbox1 != null) {
+            cantidadReligioso = CantidadTextbox3.getText();
+            seguroReligioso = SeguroTextbox1.getText();
+        }
+
+        try {
+            double seguroReligiosoDouble = Double.parseDouble(seguroReligioso);
+            double montoDouble = Double.parseDouble(monto);
+            int cantidadReligiosaINT = Integer.parseInt(cantidadReligioso);
+            funcionEvento.CrearEventoReligioso(codigo, titulo, desc, fechaDate, montoDouble, name, seguroReligiosoDouble, cantidadReligiosaINT);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error: Ingrese valores numéricos válidos para monto y cantidad.");
+        }
+
+    }
+
+    private void handleMusicalEvent() {
+
+        TipoMusical TipoMusical = null;
+        String cantidadMusica = null;
+        String seguroMusica = null;
+
+        if (MusicaJcombo != null && CantidadTextbox1 != null && SeguroTextbox != null) {
+            TipoMusical = (TipoMusical) MusicaJcombo.getSelectedItem();
+            cantidadMusica = CantidadTextbox1.getText();
+            seguroMusica = SeguroTextbox.getText();
+        }
+
+        String titulo = TituloTextbox.getText();
+        String codigo = CodigoTextbox.getText();
+        String fecha = FechaTextbox.getText();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd/MM/uu HH:mm", Locale.ENGLISH);
+        LocalDateTime fechaDate = LocalDateTime.parse(fecha + " 00:00", formatter);
+
+        String monto = MontoTextbox.getText();
+        String desc = DescripcionTextbox.getText();
 
         if (codigo.isEmpty() || monto.isEmpty() || fecha.isEmpty() || desc.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.");
@@ -529,33 +596,23 @@ public class CrearEvento_AdminContenido extends javax.swing.JFrame {
         }
 
         try {
-            double montoDouble = Double.parseDouble(monto);
-            int cantidadInt = Integer.parseInt(cantidad);
-            int cantidadInt2 = Integer.parseInt(cantidadMusica);
-            int cantidadInt3 = Integer.parseInt(cantidadReligioso);
+            
             double seguroMusicalDouble = Double.parseDouble(seguroMusica);
-            double seguroReligiosoDouble = Double.parseDouble(seguroReligioso);
-
-            switch (TipoEvento) {
-                case DEPORTIVO:
-                    funcionEvento.CrearEventoDeportivo(codigo, titulo, desc, fechaDate, montoDouble, name, equipo1, equipo2, cantidadInt, TipoDeporte.toString());
-                    break;
-                case MUSICAL:
-                    funcionEvento.CrearEventoMusical(codigo, titulo, desc, fechaDate, montoDouble, name, seguroMusicalDouble , cantidadInt2, TipoMusical.toString());
-                    break;
-                case RELIGIOSO:
-                    funcionEvento.CrearEventoReligioso(codigo, titulo, desc, fechaDate, montoDouble, name, seguroReligiosoDouble, cantidadInt3);
-                    break;
-            }
-
-
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "El monto debe ser un número válido.");
+            int cantidadInt2 = Integer.parseInt(cantidadMusica);
+            double montoDouble = Double.parseDouble(monto);
+            
+            funcionEvento.CrearEventoMusical(codigo, titulo, desc, fechaDate, montoDouble, name, seguroMusicalDouble, cantidadInt2, TipoMusical.toString());
+            
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error: Ingrese valores numéricos válidos para monto y cantidad.");
         }
-    }//GEN-LAST:event_CrearBTNActionPerformed
 
+    }
+
+    
     private void DeportivoHideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeportivoHideActionPerformed
         EventoDeportivo.setVisible(false);
+        DescripcionTextbox.setEditable(true);
     }//GEN-LAST:event_DeportivoHideActionPerformed
 
     private void DetallesBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DetallesBTNActionPerformed
@@ -566,7 +623,8 @@ public class CrearEvento_AdminContenido extends javax.swing.JFrame {
                 EventoMusical.setVisible(false);
                 EventoReligioso.setVisible(false);
                 EventoDeportivo.setVisible(true);
-                DescripcionTextbox.setEditable(false);
+                 DescripcionTextbox.setEditable(false);
+
                 break;
             case MUSICAL:
                 EventoDeportivo.setVisible(false);
@@ -585,8 +643,7 @@ public class CrearEvento_AdminContenido extends javax.swing.JFrame {
     }//GEN-LAST:event_DetallesBTNActionPerformed
 
     private void MusicaJcomboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MusicaJcomboActionPerformed
-       EventoDeportivo.setVisible(false);
-       DescripcionTextbox.setEditable(true);
+       
     }//GEN-LAST:event_MusicaJcomboActionPerformed
 
     private void ReligiosoHideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReligiosoHideActionPerformed
@@ -642,7 +699,7 @@ public class CrearEvento_AdminContenido extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CrearEvento_AdminContenido(new ArrayList<Usuario>(), "", new UsuariosMetodos()).setVisible(true);
+                new CrearEvento_AdminContenido(new ArrayList<Usuario>(), "", new UsuariosMetodos(), new EventosMetodos()).setVisible(true);
             }
         });
     }
@@ -668,7 +725,7 @@ public class CrearEvento_AdminContenido extends javax.swing.JFrame {
     private javax.swing.JPanel EventoReligioso;
     private javax.swing.JTextField FechaTextbox;
     private javax.swing.JTextField MontoTextbox;
-    private javax.swing.JComboBox MusicaJcombo;
+    private javax.swing.JComboBox<TipoMusical> MusicaJcombo;
     private javax.swing.JButton MusicalHide;
     private javax.swing.JButton RegresarBTN;
     private javax.swing.JButton ReligiosoHide;
