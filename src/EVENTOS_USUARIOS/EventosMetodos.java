@@ -57,7 +57,7 @@ public class EventosMetodos {
         for (int indice = 0; indice < usuariosArray.size(); indice++) {
             if (usuariosArray.get(indice).getUsuario().equals(name)) {
                 
-                if (cantidad > 20000) {
+                if (cantidad <= 20000) {
                     ArrayList<String> jugadoresEquipo1 = new ArrayList<>();
                     ArrayList<String> jugadoresEquipo2 = new ArrayList<>();
 
@@ -90,7 +90,7 @@ public class EventosMetodos {
         System.out.println("USUARIOS ACTUALES: "+ usuariosArray);
         for (int indice = 0; indice < usuariosArray.size(); indice++) {
             if (usuariosArray.get(indice).getUsuario().equals(name)) {
-                if (cantidad > 30000) {
+                if (cantidad <= 30000) {
                     EventoReligioso nuevoEvento = new EventoReligioso(codigo, titulo, desc, fecha, monto, seguro, cantidad);
                     usuariosArray.get(indice).AgregarEvento(nuevoEvento);
                 JOptionPane.showMessageDialog(null, "Se agrego un nuevo evento RELIGIOSO de manera exitosa!");
@@ -119,7 +119,7 @@ public class EventosMetodos {
         
         for (int indice = 0; indice < usuariosArray.size(); indice++) {
             if (usuariosArray.get(indice).getUsuario().equals(name)) {
-                if (cantidad > 25000) {
+                if (cantidad <= 25000) {
                     EventoMusical nuevoEvento = new EventoMusical(codigo, titulo, desc, fecha, monto, seguro, cantidad, tipoMusical);
                 usuariosArray.get(indice).AgregarEvento(nuevoEvento);
                 JOptionPane.showMessageDialog(null, "Se agrego un nuevo evento MUSICAL de manera exitosa!");
