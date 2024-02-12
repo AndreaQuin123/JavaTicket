@@ -19,13 +19,19 @@ public class UsuariosMetodos {
     private ArrayList<Usuario> usuariosArray = Login.getUsuariosArray();
 
     public boolean buscarUsuario(String usuario) {
+        return buscarUsuarioRecursivo(0, usuario);
+    }
 
-        for (int indice = 0; indice < usuariosArray.size(); indice++) {
-            if (usuariosArray.get(indice).getUsuario().equals(usuario)) {
-                return true;
-            }
+    private boolean buscarUsuarioRecursivo(int indice, String usuario) {
+        if (indice >= usuariosArray.size()) {
+            return false;
         }
-        return false;
+
+        if (usuariosArray.get(indice).getUsuario().equals(usuario)) {
+            return true;
+        }
+
+        return buscarUsuarioRecursivo(indice + 1, usuario);
     }
 
     public void agregarUsuario(String nombre, String usuario, String password, int edad, String tipoUsuario) {

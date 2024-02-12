@@ -2,6 +2,7 @@ package EVENTOS_USUARIOS;
 
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -13,22 +14,23 @@ import java.time.LocalDateTime;
  * @author vanes
  */
 public abstract class Evento {
-    
+
     //ATRIBUTOS
-    
     private String codigo;
+    private int cantidad;
     private String tituloEvento;
     private String descripcionEvento;
-    private LocalDateTime fechaEvento;
+    Date fechaEvento;
     private double montoEvento;
-    
-    public Evento(String codigo, String tituloEvento, String descripcionEvento, LocalDateTime fechaEvento, double montoEvento) {
+
+    public Evento(String codigo, String tituloEvento, String descripcionEvento, Date fechaEvento, double montoEvento, int cantidad) {
 
         this.codigo = codigo;
         this.tituloEvento = tituloEvento;
         this.descripcionEvento = descripcionEvento;
         this.fechaEvento = fechaEvento;
         this.montoEvento = montoEvento;
+        this.cantidad = cantidad;
 
     }
 
@@ -45,7 +47,7 @@ public abstract class Evento {
         return descripcionEvento;
     }
 
-    public LocalDateTime getFecha() {
+    public Date getFecha() {
         return fechaEvento;
     }
 
@@ -53,7 +55,15 @@ public abstract class Evento {
         return montoEvento;
     }
 
+    public int getCantidad() {
+        return cantidad;
+    }
+
     //FUNCIONES SET
+    public void setCantidad(int cantidad) {
+        this.cantidad=cantidad;
+    }
+   
     public void setCodigo(String codigo) {
         this.codigo=codigo;
     }
@@ -66,7 +76,7 @@ public abstract class Evento {
         this.descripcionEvento = descripcionEvento;
     }
 
-    public void setFecha(LocalDateTime fechaEVento) {
+    public void setFecha(Date fechaEVento) {
         this.fechaEvento = fechaEvento;
     }
 

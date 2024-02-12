@@ -4,6 +4,8 @@
  */
 package EVENTOS_USUARIOS;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author vanes
@@ -18,6 +20,11 @@ package EVENTOS_USUARIOS;
 
     @Override
     public void AgregarEvento(Evento nuevoEvento) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public ArrayList<Evento> getListaEventos() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

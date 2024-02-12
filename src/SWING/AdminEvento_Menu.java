@@ -4,6 +4,7 @@
  */
 package SWING;
 
+import EVENTOS_USUARIOS.Evento;
 import EVENTOS_USUARIOS.EventosMetodos;
 import EVENTOS_USUARIOS.Usuario;
 import EVENTOS_USUARIOS.UsuariosMetodos;
@@ -43,6 +44,7 @@ public class AdminEvento_Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        VerEventoBTN = new javax.swing.JButton();
         EditarEventoBTN = new javax.swing.JButton();
         CrearEventoBTN = new javax.swing.JButton();
         BorrarEventoBTN = new javax.swing.JButton();
@@ -52,14 +54,25 @@ public class AdminEvento_Menu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        VerEventoBTN.setBorder(null);
+        VerEventoBTN.setContentAreaFilled(false);
+        VerEventoBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VerEventoBTNActionPerformed(evt);
+            }
+        });
+        getContentPane().add(VerEventoBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 290, 180, 170));
+
+        EditarEventoBTN.setBorder(null);
         EditarEventoBTN.setContentAreaFilled(false);
         EditarEventoBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EditarEventoBTNActionPerformed(evt);
             }
         });
-        getContentPane().add(EditarEventoBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, 240, 240));
+        getContentPane().add(EditarEventoBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 90, 180, 180));
 
+        CrearEventoBTN.setBorder(null);
         CrearEventoBTN.setContentAreaFilled(false);
         CrearEventoBTN.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -71,15 +84,16 @@ public class AdminEvento_Menu extends javax.swing.JFrame {
                 CrearEventoBTNActionPerformed(evt);
             }
         });
-        getContentPane().add(CrearEventoBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 250, 240));
+        getContentPane().add(CrearEventoBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 190, 180));
 
+        BorrarEventoBTN.setBorder(null);
         BorrarEventoBTN.setContentAreaFilled(false);
         BorrarEventoBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BorrarEventoBTNActionPerformed(evt);
             }
         });
-        getContentPane().add(BorrarEventoBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 150, 250, 240));
+        getContentPane().add(BorrarEventoBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 290, 180, 170));
 
         RegresarBTN.setContentAreaFilled(false);
         RegresarBTN.addActionListener(new java.awt.event.ActionListener() {
@@ -106,9 +120,20 @@ public class AdminEvento_Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_CrearEventoBTNActionPerformed
 
     private void EditarEventoBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarEventoBTNActionPerformed
-        EditarEvento_AdminContenido pasar = new EditarEvento_AdminContenido(usuariosArray, name, funcionUsuario);
+        String codigoEvento = JOptionPane.showInputDialog(null, "Inserte el codigo del evento que desea editar.");
+
+        boolean evento = funcionEvento.BuscarEvento(name , codigoEvento);
+
+        if (evento) {
+        EditarEvento_AdminContenido pasar = new EditarEvento_AdminContenido(usuariosArray, name, funcionUsuario, codigoEvento);
         pasar.setVisible(true);
         this.setVisible(false);
+        
+        } else {
+            
+            JOptionPane.showMessageDialog(null, "El usuario no es el creador de este evento o el evento no existe.");
+            
+        }
     }//GEN-LAST:event_EditarEventoBTNActionPerformed
 
     private void BorrarEventoBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorrarEventoBTNActionPerformed
@@ -125,14 +150,33 @@ public class AdminEvento_Menu extends javax.swing.JFrame {
             MainMenu_Admin pasar = new MainMenu_Admin(usuariosArray, name, funcionUsuario);
             pasar.setVisible(true);
             this.setVisible(false);
-            
-        } else if (usuarioEleccion== JOptionPane.NO_OPTION){
+
+        } else if (usuarioEleccion == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(null, "Se canceló la operación.");
         }
     }//GEN-LAST:event_RegresarBTNActionPerformed
 
+    private void VerEventoBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerEventoBTNActionPerformed
+        String codigoEvento = JOptionPane.showInputDialog(null, "Inserte el código del evento que desea editar.");
+
+        for (int indice = 0; indice < usuariosArray.size(); indice++) {
+            ArrayList<Evento> eventos = usuariosArray.get(indice).getListaEventos();
+            for (Evento evento : eventos) {
+                if (evento.getCodigo().equals(codigoEvento)) {
+                    VerEvento_Usuarios pasar = new VerEvento_Usuarios(usuariosArray, name, funcionUsuario, funcionEvento, codigoEvento);
+                    pasar.setVisible(true);
+                    this.setVisible(false);
+                    return;
+                }
+            }
+        }
+
+        JOptionPane.showMessageDialog(null, "No se encontró el evento con código " + codigoEvento);
+
+    }//GEN-LAST:event_VerEventoBTNActionPerformed
+
     /**
-     * @param args the command line arguments
+         * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -172,6 +216,7 @@ public class AdminEvento_Menu extends javax.swing.JFrame {
     private javax.swing.JButton CrearEventoBTN;
     private javax.swing.JButton EditarEventoBTN;
     private javax.swing.JButton RegresarBTN;
+    private javax.swing.JButton VerEventoBTN;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

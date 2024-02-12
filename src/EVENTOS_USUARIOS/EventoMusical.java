@@ -5,6 +5,9 @@
 package EVENTOS_USUARIOS;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 /**
  * @author vanes
@@ -14,12 +17,16 @@ public class EventoMusical extends Evento {
     private int cantidad;
     private String tipoMusical;
     private double seguro;
+    private HashMap<String, String> miembrosInstruments;
+    private String miembro;
+    private String instrumento;
 
-    public EventoMusical(String codigo, String tituloEvento, String descripcionEvento, LocalDateTime fechaEvento, double montoEvento, double seguro, int cantidad, String tipoMusical) {
-        super(codigo, tituloEvento, descripcionEvento, fechaEvento, montoEvento);
+    public EventoMusical(String codigo, String tituloEvento, String descripcionEvento, Date fechaEvento, double montoEvento, double seguro, int cantidad, String tipoMusical) {
+        super(codigo, tituloEvento, descripcionEvento, fechaEvento, montoEvento, cantidad);
         this.cantidad = cantidad;
         this.tipoMusical = tipoMusical;
-        this.seguro = seguro;
+        this.seguro = montoEvento*0.30;
+        this.miembrosInstruments = new HashMap<>();
     }
 
     //FUNCIONES GET
@@ -35,8 +42,42 @@ public class EventoMusical extends Evento {
         return cantidad;
     }
 
+    public void setSeguro(double seguro) {
+        this.seguro = seguro;
+
+    }
+
+    //SETTERS
+    public void setmiembrosInstruments(String miembro, String instrumento) {
+        miembrosInstruments.put(miembro, instrumento);
+    }
+
+    public String getMiembro(int indice) {
+        return miembrosInstruments.get(miembro);
+    }
+
+    public String getInstrumento(int indice) {
+        return miembrosInstruments.get(instrumento);
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public void setFecha(Date fechaEvento) {
+        this.fechaEvento = fechaEvento;
+    }
+
+    public void setTipoMusical(String tipoMusical) {
+        this.tipoMusical = tipoMusical;
+    }
+
+    public HashMap<String, String> getMembersAndInstruments() {
+        return miembrosInstruments;
+    }
+
     public enum TipoMusical {
-        POP, ROCK,  RAP, CLASICA, REGGEATON, OTRO
+        POP, ROCK, RAP, CLASICA, REGGEATON, OTRO
     }
 
 }

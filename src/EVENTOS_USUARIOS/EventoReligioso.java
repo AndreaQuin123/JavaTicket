@@ -1,21 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package EVENTOS_USUARIOS;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
 
-/**
- * @author vanes
- */
 public class EventoReligioso extends Evento {
 
+    private ArrayList<String> participantes;
     private int cantidad;
-    private final double seguro;
+    private double seguro;
 
-    public EventoReligioso(String codigo, String tituloEvento, String descripcionEvento, LocalDateTime fechaEvento, double montoEvento, double seguro, int cantidad) {
-        super(codigo, tituloEvento, descripcionEvento, fechaEvento, montoEvento);
+    public EventoReligioso(String codigo, String tituloEvento, String descripcionEvento, Date fechaEvento, double montoEvento, double seguro, int cantidad) {
+        super(codigo, tituloEvento, descripcionEvento, fechaEvento, montoEvento, cantidad);
         this.cantidad = cantidad;
         this.seguro = 2000;
     }
@@ -28,5 +25,23 @@ public class EventoReligioso extends Evento {
     public int getCantidad() {
         return cantidad;
     }
+
+    public ArrayList<String> getParticipantes() {
+        return participantes;
+    }
+
+    public void setParticipante(String participante) {
+        this.participantes.add(participante);
+    }
+
+    public void setSeguro(double seguro) {
+        this.seguro = seguro;
+
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+
     
+}
 }
