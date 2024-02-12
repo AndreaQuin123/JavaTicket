@@ -20,8 +20,6 @@ import javax.swing.Timer;
  */
 public class Login extends javax.swing.JFrame {
 
-
-
     private Usuario usuarioMetodos;
     boolean usuarioEncontrado = false;
      boolean escondido = true;
