@@ -4,6 +4,7 @@
  */
 package SWING;
 
+import EVENTOS_USUARIOS.EventosMetodos;
 import EVENTOS_USUARIOS.Usuario;
 import EVENTOS_USUARIOS.UsuariosMetodos;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class EditarUsuario_Admin extends javax.swing.JFrame {
     private ArrayList<Usuario> usuariosArray;
     private String name;
     private UsuariosMetodos funcionUsuario;
+    private EventosMetodos funcionEvento;
     private String usuarioViejo;
     private String passwordViejo;
     private String edadViejaSTRING;
@@ -135,20 +137,22 @@ public class EditarUsuario_Admin extends javax.swing.JFrame {
             int edadINT = Integer.parseInt(edad);
 
             funcionUsuario.editarUsuario(usuarioViejo, nombre, passwordNuevo, edadINT, usuarioNuevo, passwordNuevo);
-            
-            
+            MainMenu_Admin pasar = new MainMenu_Admin(usuariosArray, name, funcionUsuario, funcionEvento);
+            pasar.setVisible(true);
+            this.setVisible(false);
+
         } catch (NumberFormatException e) {
 
             JOptionPane.showMessageDialog(null, "La edad debe ser un número entero válido.");
 
-        } 
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int usuarioEleccion = JOptionPane.showConfirmDialog(null, "Desea regresar al menu principal?", "REGRESAR AL MENU", JOptionPane.YES_NO_OPTION);
 
         if (usuarioEleccion == JOptionPane.YES_OPTION) {
-            MainMenu_Admin pasar = new MainMenu_Admin(usuariosArray, name, funcionUsuario);
+            MainMenu_Admin pasar = new MainMenu_Admin(usuariosArray, name, funcionUsuario, funcionEvento);
             pasar.setVisible(true);
             this.setVisible(false);
             

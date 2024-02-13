@@ -21,49 +21,9 @@ public class DetallesReligioso extends javax.swing.JFrame {
         funcionEvento = EventoFuncion != null ? EventoFuncion : new EventosMetodos();
 
         initComponents();
+        
+                setLocationRelativeTo(null);
 
-        String participante;
-
-        for (int indice = 0; indice < usuariosArray.size(); indice++) {
-
-            if (usuariosArray.get(indice).getUsuario().equals(name)) {
-
-                ArrayList<Evento> eventos = usuariosArray.get(indice).getListaEventos();
-                for (Evento evento : eventos) {
-                    if (evento.getCodigo().equals(codigoEvento)) {
-                        eventoReligioso = (EventoReligioso) evento;
-                        
-                        for (String entry : eventoReligioso.getParticipantes()) {
-                            participante = entry;
-
-                            if (ParticipantesTextbox1.getText().isEmpty()) {
-                                ParticipantesTextbox1.setText(participante);
-                            } else if (ParticipantesTextbox2.getText().isEmpty()) {
-                                ParticipantesTextbox2.setText(participante);
-                            } else if (ParticipantesTextbox3.getText().isEmpty()) {
-                                ParticipantesTextbox3.setText(participante);
-                            } else if (ParticipantesTextbox4.getText().isEmpty()) {
-                                ParticipantesTextbox4.setText(participante);
-                            } else if (ParticipantesTextbox5.getText().isEmpty()) {
-                                ParticipantesTextbox5.setText(participante);
-                            } else if (ParticipantesTextbox6.getText().isEmpty()) {
-                                ParticipantesTextbox6.setText(participante);
-                            } else if (ParticipantesTextbox7.getText().isEmpty()) {
-                                ParticipantesTextbox7.setText(participante);
-                            } else if (ParticipantesTextbox8.getText().isEmpty()) {
-                                ParticipantesTextbox8.setText(participante);
-                            } else if (ParticipantesTextbox9.getText().isEmpty()) {
-                                ParticipantesTextbox9.setText(participante);
-                            } else if (ParticipantesTextbox10.getText().isEmpty()) {
-                                ParticipantesTextbox10.setText(participante);
-                            }
-                        }
-
-                    }
-                }
-
-            }
-        }
         }
 
     @SuppressWarnings("unchecked")
@@ -84,67 +44,67 @@ public class DetallesReligioso extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ParticipantesTextbox1.setBackground(new java.awt.Color(245, 245, 245));
         ParticipantesTextbox1.setForeground(new java.awt.Color(0, 0, 0));
         ParticipantesTextbox1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        getContentPane().add(ParticipantesTextbox1);
-        ParticipantesTextbox1.setBounds(190, 83, 260, 40);
+        ParticipantesTextbox1.setBorder(null);
+        getContentPane().add(ParticipantesTextbox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 83, 260, 40));
 
         ParticipantesTextbox2.setBackground(new java.awt.Color(245, 245, 245));
         ParticipantesTextbox2.setForeground(new java.awt.Color(0, 0, 0));
         ParticipantesTextbox2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        getContentPane().add(ParticipantesTextbox2);
-        ParticipantesTextbox2.setBounds(190, 150, 260, 40);
+        ParticipantesTextbox2.setBorder(null);
+        getContentPane().add(ParticipantesTextbox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 260, 40));
 
         ParticipantesTextbox3.setBackground(new java.awt.Color(245, 245, 245));
         ParticipantesTextbox3.setForeground(new java.awt.Color(0, 0, 0));
         ParticipantesTextbox3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        getContentPane().add(ParticipantesTextbox3);
-        ParticipantesTextbox3.setBounds(190, 220, 260, 40);
+        ParticipantesTextbox3.setBorder(null);
+        getContentPane().add(ParticipantesTextbox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, 260, 40));
 
         ParticipantesTextbox4.setBackground(new java.awt.Color(245, 245, 245));
         ParticipantesTextbox4.setForeground(new java.awt.Color(0, 0, 0));
         ParticipantesTextbox4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        getContentPane().add(ParticipantesTextbox4);
-        ParticipantesTextbox4.setBounds(190, 290, 260, 40);
+        ParticipantesTextbox4.setBorder(null);
+        getContentPane().add(ParticipantesTextbox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 260, 40));
 
         ParticipantesTextbox5.setBackground(new java.awt.Color(245, 245, 245));
         ParticipantesTextbox5.setForeground(new java.awt.Color(0, 0, 0));
         ParticipantesTextbox5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        getContentPane().add(ParticipantesTextbox5);
-        ParticipantesTextbox5.setBounds(190, 370, 260, 40);
+        ParticipantesTextbox5.setBorder(null);
+        getContentPane().add(ParticipantesTextbox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 370, 260, 40));
 
         ParticipantesTextbox6.setBackground(new java.awt.Color(245, 245, 245));
         ParticipantesTextbox6.setForeground(new java.awt.Color(0, 0, 0));
         ParticipantesTextbox6.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        getContentPane().add(ParticipantesTextbox6);
-        ParticipantesTextbox6.setBounds(510, 90, 260, 40);
+        ParticipantesTextbox6.setBorder(null);
+        getContentPane().add(ParticipantesTextbox6, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 90, 260, 40));
 
         ParticipantesTextbox7.setBackground(new java.awt.Color(245, 245, 245));
         ParticipantesTextbox7.setForeground(new java.awt.Color(0, 0, 0));
         ParticipantesTextbox7.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        getContentPane().add(ParticipantesTextbox7);
-        ParticipantesTextbox7.setBounds(510, 150, 260, 40);
+        ParticipantesTextbox7.setBorder(null);
+        getContentPane().add(ParticipantesTextbox7, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 150, 260, 40));
 
         ParticipantesTextbox8.setBackground(new java.awt.Color(245, 245, 245));
         ParticipantesTextbox8.setForeground(new java.awt.Color(0, 0, 0));
         ParticipantesTextbox8.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        getContentPane().add(ParticipantesTextbox8);
-        ParticipantesTextbox8.setBounds(510, 220, 260, 40);
+        ParticipantesTextbox8.setBorder(null);
+        getContentPane().add(ParticipantesTextbox8, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 220, 260, 40));
 
         ParticipantesTextbox9.setBackground(new java.awt.Color(245, 245, 245));
         ParticipantesTextbox9.setForeground(new java.awt.Color(0, 0, 0));
         ParticipantesTextbox9.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        getContentPane().add(ParticipantesTextbox9);
-        ParticipantesTextbox9.setBounds(510, 290, 260, 40);
+        ParticipantesTextbox9.setBorder(null);
+        getContentPane().add(ParticipantesTextbox9, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 290, 260, 40));
 
         ParticipantesTextbox10.setBackground(new java.awt.Color(245, 245, 245));
         ParticipantesTextbox10.setForeground(new java.awt.Color(0, 0, 0));
         ParticipantesTextbox10.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        getContentPane().add(ParticipantesTextbox10);
-        ParticipantesTextbox10.setBounds(510, 370, 260, 40);
+        ParticipantesTextbox10.setBorder(null);
+        getContentPane().add(ParticipantesTextbox10, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 370, 260, 40));
 
         RegresarBTN.setContentAreaFilled(false);
         RegresarBTN.addActionListener(new java.awt.event.ActionListener() {
@@ -152,12 +112,10 @@ public class DetallesReligioso extends javax.swing.JFrame {
                 RegresarBTNActionPerformed(evt);
             }
         });
-        getContentPane().add(RegresarBTN);
-        RegresarBTN.setBounds(250, 470, 480, 50);
+        getContentPane().add(RegresarBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 470, 480, 50));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/BG_EditarReligioso.png"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 960, 540);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -237,19 +195,23 @@ public class DetallesReligioso extends javax.swing.JFrame {
             eventoReligioso.setParticipante(participante);
         }
 
+        EditarEvento_AdminContenido.participantes = eventoReligioso.getParticipantes();
+
         if (!ParticipantesTextbox1.getText().isEmpty()
-                && !ParticipantesTextbox2.getText().isEmpty()
-                && !ParticipantesTextbox3.getText().isEmpty()
-                && !ParticipantesTextbox4.getText().isEmpty()
-                && !ParticipantesTextbox5.getText().isEmpty()
-                && !ParticipantesTextbox6.getText().isEmpty()
-                && !ParticipantesTextbox7.getText().isEmpty()
-                && !ParticipantesTextbox8.getText().isEmpty()
-                && !ParticipantesTextbox9.getText().isEmpty()
-                && !ParticipantesTextbox10.getText().isEmpty()) {
+                || !ParticipantesTextbox2.getText().isEmpty()
+                || !ParticipantesTextbox3.getText().isEmpty()
+                || !ParticipantesTextbox4.getText().isEmpty()
+                || !ParticipantesTextbox5.getText().isEmpty()
+                || !ParticipantesTextbox6.getText().isEmpty()
+                || !ParticipantesTextbox7.getText().isEmpty()
+                || !ParticipantesTextbox8.getText().isEmpty()
+                || !ParticipantesTextbox9.getText().isEmpty()
+                || !ParticipantesTextbox10.getText().isEmpty()) {
+
             this.dispose();
+
         } else {
-            JOptionPane.showMessageDialog(null, "Por favor, inserta mínimo participante.");
+            JOptionPane.showMessageDialog(null, "Por favor, inserta al menos un participante.");
         }
 
     }//GEN-LAST:event_RegresarBTNActionPerformed

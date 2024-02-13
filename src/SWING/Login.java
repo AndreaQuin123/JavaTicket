@@ -4,6 +4,7 @@
  */
 package SWING;
 
+import EVENTOS_USUARIOS.EventosMetodos;
 import EVENTOS_USUARIOS.Usuario;
 import EVENTOS_USUARIOS.UsuarioAdmin;
 import EVENTOS_USUARIOS.UsuarioContenido;
@@ -13,7 +14,6 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
 
 /**
  * @author vanes
@@ -24,6 +24,7 @@ public class Login extends javax.swing.JFrame {
     boolean usuarioEncontrado = false;
      boolean escondido = true;
     private UsuariosMetodos funcionUsuario;
+    private EventosMetodos funcionEvento;
 
     String nombreAdmin = "ADMINISTRADOR";
     String usuarioAdmin = "admin";
@@ -34,7 +35,7 @@ public class Login extends javax.swing.JFrame {
 
     public Login(ArrayList<Usuario> usuarios, UsuariosMetodos UsuarioFuncion ) {
         usuariosArray = usuarios != null ? usuarios : new ArrayList<Usuario>();
-        usuariosArray = Login.getUsuariosArray();
+        usuariosArray = UsuariosMetodos.getUsuariosArray();
         funcionUsuario = UsuarioFuncion != null ? UsuarioFuncion : new UsuariosMetodos();
 
         if (usuariosArray.isEmpty()) {
@@ -147,7 +148,7 @@ public class Login extends javax.swing.JFrame {
                 usuarioEncontrado = true;
 
                 if (usuariosArray.get(indice) instanceof UsuarioAdmin) {
-                    MainMenu_Admin pasar = new MainMenu_Admin(usuariosArray, usuario, funcionUsuario);
+                    MainMenu_Admin pasar = new MainMenu_Admin(usuariosArray, usuario, funcionUsuario, funcionEvento);
                     pasar.setVisible(true);
                     this.setVisible(false);
 
@@ -157,7 +158,7 @@ public class Login extends javax.swing.JFrame {
                     this.setVisible(false);
 
                 } else if (usuariosArray.get(indice) instanceof UsuarioLimitado) {
-                    MainMenu_Limitado pasar = new MainMenu_Limitado(usuariosArray, usuario, funcionUsuario);
+                    MainMenu_Limitado pasar = new MainMenu_Limitado(usuariosArray, usuario, funcionUsuario, funcionEvento);
                     pasar.setVisible(true);
                     this.setVisible(false);
                 }

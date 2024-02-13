@@ -4,8 +4,12 @@
  */
 package SWING;
 
+import EVENTOS_USUARIOS.Evento;
+import EVENTOS_USUARIOS.EventosMetodos;
 import EVENTOS_USUARIOS.Usuario;
 import EVENTOS_USUARIOS.UsuariosMetodos;
+import static SWING.VerEvento_Usuarios.eventos;
+import static SWING.REPORTES_EventosCancelados.eventosCancelados;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
@@ -14,22 +18,30 @@ import static javax.swing.JOptionPane.YES_NO_OPTION;
  *
  * @author vanes
  */
-
 public class MainMenu_Limitado extends javax.swing.JFrame {
 
- private ArrayList<Usuario> usuariosArray;
- private String name;
+    private ArrayList<Usuario> usuariosArray;
+    private String name;
     private UsuariosMetodos funcionUsuario;
- 
- 
-    public MainMenu_Limitado(ArrayList<Usuario> usuarios, String name, UsuariosMetodos UsuarioFuncion) {
+    private EventosMetodos funcionEvento;
+
+    public MainMenu_Limitado(ArrayList<Usuario> usuarios, String name, UsuariosMetodos UsuarioFuncion, EventosMetodos EventoFuncion) {
         usuariosArray = usuarios != null ? usuarios : new ArrayList<Usuario>();
         usuariosArray = Login.getUsuariosArray();
         this.name = name;
         funcionUsuario = UsuarioFuncion != null ? UsuarioFuncion : new UsuariosMetodos();
-        
+        funcionEvento = EventoFuncion != null ? EventoFuncion : new EventosMetodos();
+
+        if (eventos == null) {
+            eventos = new ArrayList<Evento>();
+        }
+
+        if (eventosCancelados == null) {
+            eventosCancelados = new ArrayList<Evento>();
+        }
+
         initComponents();
-        
+
         QueDeseaText.setText("QUE DESEA HACER HOY, " + name + "?");
         setLocationRelativeTo(null);
     }
@@ -51,7 +63,7 @@ public class MainMenu_Limitado extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(231, 201, 76));
 
@@ -77,16 +89,23 @@ public class MainMenu_Limitado extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(150, 60, 670, 70);
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, -1, -1));
 
         EVENTOSButton.setContentAreaFilled(false);
-        getContentPane().add(EVENTOSButton);
-        EVENTOSButton.setBounds(200, 170, 270, 270);
+        EVENTOSButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EVENTOSButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(EVENTOSButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 270, 270));
 
         REPORTESButton.setContentAreaFilled(false);
-        getContentPane().add(REPORTESButton);
-        REPORTESButton.setBounds(490, 170, 280, 270);
+        REPORTESButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                REPORTESButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(REPORTESButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 170, 280, 270));
 
         jButton1.setContentAreaFilled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -94,12 +113,10 @@ public class MainMenu_Limitado extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(20, 470, 180, 50);
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, 180, 50));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/BG_UserLimitado.png"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 960, 540);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -108,13 +125,43 @@ public class MainMenu_Limitado extends javax.swing.JFrame {
         int usuarioEleccion = JOptionPane.showConfirmDialog(null, "Al regresar al LOGIN, se quitaria su sesion. Esta de acuerdo con regresar?", "REGRESAR AL MENU", YES_NO_OPTION);
 
         if (usuarioEleccion == JOptionPane.YES_OPTION) {
-            MainMenu_Limitado pasar = new MainMenu_Limitado(usuariosArray, name, funcionUsuario);
+            Login pasar = new Login(usuariosArray, funcionUsuario);
             pasar.setVisible(true);
             this.setVisible(false);
-        } else if (usuarioEleccion== JOptionPane.NO_OPTION){
+        } else if (usuarioEleccion == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(null, "Se canceló la operación.");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void REPORTESButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPORTESButtonActionPerformed
+        REPORTES_MENU pasar = new REPORTES_MENU(usuariosArray, name, funcionUsuario);
+        pasar.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_REPORTESButtonActionPerformed
+
+    private void EVENTOSButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EVENTOSButtonActionPerformed
+        String codigoEvento = JOptionPane.showInputDialog(null, "Inserte el código del evento que desea editar.");
+
+        for (Evento evento : eventos) {
+            if (evento.getCodigo().equals(codigoEvento)) {
+                VerEvento_Usuarios pasar = new VerEvento_Usuarios(usuariosArray, name, funcionUsuario, funcionEvento, codigoEvento);
+                pasar.setVisible(true);
+                this.setVisible(false);
+                return;
+            }
+        }
+
+        for (Evento evento : eventosCancelados) {
+            if (evento.getCodigo().equals(codigoEvento)) {
+                VerEvento_Usuarios pasar = new VerEvento_Usuarios(usuariosArray, name, funcionUsuario, funcionEvento, codigoEvento);
+                pasar.setVisible(true);
+                this.setVisible(false);
+                return;
+            }
+        }
+
+        JOptionPane.showMessageDialog(null, "No se encontró el evento con código " + codigoEvento);
+    }//GEN-LAST:event_EVENTOSButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,7 +193,7 @@ public class MainMenu_Limitado extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainMenu_Limitado(new ArrayList<Usuario>(), "", new UsuariosMetodos()).setVisible(true);
+                new MainMenu_Limitado(new ArrayList<Usuario>(), "", new UsuariosMetodos(), new EventosMetodos()).setVisible(true);
             }
         });
     }

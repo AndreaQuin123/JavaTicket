@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
     public class UsuarioAdmin extends Usuario {
 
-    private ArrayList<Evento> listaEventos;
+    private final ArrayList<Evento> listaEventos;
         
         
         public UsuarioAdmin(String nombre, String username, String password, int edad) {
@@ -20,10 +20,12 @@ import java.util.ArrayList;
             this.listaEventos = new ArrayList<Evento>();
     }
 
+    @Override
     public ArrayList<Evento> getListaEventos() {
         return listaEventos;
     }
     
+    @Override
     public void AgregarEvento(Evento nuevoEvento){
         listaEventos.add(nuevoEvento);
     }

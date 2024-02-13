@@ -12,21 +12,20 @@ import java.util.ArrayList;
  */
 
     public class UsuarioLimitado extends Usuario {
-       
-        public UsuarioLimitado(String nombre, String username, String password, int edad) {
-            super(nombre, username, password, edad);
 
-        }
+    public UsuarioLimitado(String nombre, String username, String password, int edad) {
+        super(nombre, username, password, edad);
+
+    }
 
     @Override
     public void AgregarEvento(Evento nuevoEvento) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return;
     }
 
     @Override
     public ArrayList<Evento> getListaEventos() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return null;
     }
 
-
-    }
+}

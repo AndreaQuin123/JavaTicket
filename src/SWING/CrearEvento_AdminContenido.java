@@ -4,6 +4,7 @@
  */
 package SWING;
 
+import EVENTOS_USUARIOS.Evento;
 import EVENTOS_USUARIOS.EventosMetodos;
 import EVENTOS_USUARIOS.Evento.TipoEvento;
 import static EVENTOS_USUARIOS.Evento.TipoEvento.DEPORTIVO;
@@ -12,23 +13,18 @@ import static EVENTOS_USUARIOS.Evento.TipoEvento.RELIGIOSO;
 import EVENTOS_USUARIOS.EventoDeportivo.TipoDeporte;
 import EVENTOS_USUARIOS.EventoMusical.TipoMusical;
 import EVENTOS_USUARIOS.Usuario;
+import EVENTOS_USUARIOS.UsuarioAdmin;
+import EVENTOS_USUARIOS.UsuarioContenido;
+import EVENTOS_USUARIOS.UsuarioLimitado;
 import EVENTOS_USUARIOS.UsuariosMetodos;
 import SWING.CALENDARIO.CalendarioPanel;
-import java.awt.GridLayout;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /**
  *
@@ -42,7 +38,7 @@ public class CrearEvento_AdminContenido extends javax.swing.JFrame {
     private EventosMetodos funcionEvento;
     private String Uniquecode;
     public static Date selectedDate;
-
+    
     public CrearEvento_AdminContenido(ArrayList<Usuario> usuarios, String name, UsuariosMetodos UsuarioFuncion, EventosMetodos EventoFuncion) {
         usuariosArray = usuarios != null ? usuarios : new ArrayList<Usuario>();
         usuariosArray = Login.getUsuariosArray();
@@ -51,6 +47,7 @@ public class CrearEvento_AdminContenido extends javax.swing.JFrame {
         funcionEvento = EventoFuncion != null ? EventoFuncion : new EventosMetodos();
 
         initComponents();
+        
         EventoDeportivo.setVisible(false);
         EventoReligioso.setVisible(false);
         EventoMusical.setVisible(false);
@@ -159,7 +156,6 @@ public class CrearEvento_AdminContenido extends javax.swing.JFrame {
         SeguroTextbox.setEditable(false);
         SeguroTextbox.setBackground(new java.awt.Color(255, 255, 255));
         SeguroTextbox.setForeground(new java.awt.Color(0, 0, 0));
-        SeguroTextbox.setText("2000");
         SeguroTextbox.setBorder(null);
         SeguroTextbox.setOpaque(true);
         SeguroTextbox.addActionListener(new java.awt.event.ActionListener() {
@@ -367,6 +363,14 @@ public class CrearEvento_AdminContenido extends javax.swing.JFrame {
                 MontoTextboxActionPerformed(evt);
             }
         });
+        MontoTextbox.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                MontoTextboxKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                MontoTextboxKeyReleased(evt);
+            }
+        });
         getContentPane().add(MontoTextbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 370, 220, 40));
 
         FechaTextbox.setEditable(false);
@@ -405,10 +409,35 @@ public class CrearEvento_AdminContenido extends javax.swing.JFrame {
 
         if (usuarioEleccion == JOptionPane.YES_OPTION) {
 
-            MainMenu_Admin pasar = new MainMenu_Admin(usuariosArray, name, funcionUsuario);
-            pasar.setVisible(true);
-            this.setVisible(false);
+            for (int indice = 0; indice < usuariosArray.size(); indice++) {
+                if (usuariosArray.get(indice).getUsuario().equals(name)) {
+                    System.out.println(name);
 
+                    Usuario usuario = usuariosArray.get(indice);
+
+                    if (usuario instanceof UsuarioAdmin) {
+                        MainMenu_Admin pasar = new MainMenu_Admin(usuariosArray, name, funcionUsuario, funcionEvento);
+                        pasar.setVisible(true);
+                        this.setVisible(false);
+                        System.out.println(name);
+                    }
+
+                    if (usuario instanceof UsuarioContenido) {
+                        MainMenu_Contenido pasar = new MainMenu_Contenido(usuariosArray, name, funcionUsuario);
+                        pasar.setVisible(true);
+                        this.setVisible(false);
+                        System.out.println(name);
+                    }
+
+                    if (usuario instanceof UsuarioLimitado) {
+                        MainMenu_Limitado pasar = new MainMenu_Limitado(usuariosArray, name, funcionUsuario, funcionEvento);
+                        pasar.setVisible(true);
+                        this.setVisible(false);
+                        System.out.println(name);
+                    }
+
+                }
+            }
         } else if (usuarioEleccion == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(null, "Se canceló la operación.");
         }
@@ -547,6 +576,8 @@ public class CrearEvento_AdminContenido extends javax.swing.JFrame {
             int cantidadInt = Integer.parseInt(cantidad);
            
             funcionEvento.CrearEventoDeportivo(codigo, titulo, desc, fechaDate, montoDouble, name, equipo1, equipo2, cantidadInt, tipoDeporte.toString());
+                           CodigoTextbox.setText("");
+
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Error: Ingrese valores numéricos válidos para monto y cantidad.");
         }
@@ -588,6 +619,8 @@ public class CrearEvento_AdminContenido extends javax.swing.JFrame {
             double montoDouble = Double.parseDouble(monto);
             int cantidadReligiosaINT = Integer.parseInt(cantidadReligioso);
             funcionEvento.CrearEventoReligioso(codigo, titulo, desc, fechaDate, montoDouble, name, seguroReligiosoDouble, cantidadReligiosaINT);
+                            CodigoTextbox.setText("");
+
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Error: Ingrese valores numéricos válidos para monto y cantidad.");
         }
@@ -632,7 +665,8 @@ public class CrearEvento_AdminContenido extends javax.swing.JFrame {
             double montoDouble = Double.parseDouble(monto);
             
             funcionEvento.CrearEventoMusical(codigo, titulo, desc, fechaDate, montoDouble, name, seguroMusicalDouble, cantidadInt2, TipoMusical.toString());
-            
+                               CodigoTextbox.setText("");
+ 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Error: Ingrese valores numéricos válidos para monto y cantidad.");
         }
@@ -703,23 +737,36 @@ public class CrearEvento_AdminContenido extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseEntered
 
     private void SeguroTextboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguroTextboxActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_SeguroTextboxActionPerformed
 
     private void MontoTextboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MontoTextboxActionPerformed
+
+    }//GEN-LAST:event_MontoTextboxActionPerformed
+
+    private void MontoTextboxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_MontoTextboxKeyPressed
         String monto = MontoTextbox.getText();
 
         try {
-
             double montoDouble = Double.parseDouble(monto);
             double seguro = montoDouble * 0.30;
-   
             SeguroTextbox.setText(String.valueOf(seguro));
         } catch (NumberFormatException e) {
-
+            SeguroTextbox.setText("");
         }
-    }//GEN-LAST:event_MontoTextboxActionPerformed
+    }//GEN-LAST:event_MontoTextboxKeyPressed
 
+    private void MontoTextboxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_MontoTextboxKeyReleased
+        String monto = MontoTextbox.getText();
+
+        try {
+            double montoDouble = Double.parseDouble(monto);
+            double seguro = montoDouble * 0.30;
+            SeguroTextbox.setText(String.valueOf(seguro));
+        } catch (NumberFormatException e) {
+            SeguroTextbox.setText("");
+        }
+    }//GEN-LAST:event_MontoTextboxKeyReleased
 
 
     public static void main(String args[]) {

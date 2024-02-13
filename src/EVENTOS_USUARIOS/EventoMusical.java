@@ -76,6 +76,10 @@ public class EventoMusical extends Evento {
         return miembrosInstruments;
     }
 
+    public void setMembersAndInstruments(HashMap <String, String> miembrosInstruments) {
+        this.miembrosInstruments = miembrosInstruments;;
+    }
+
     public enum TipoMusical {
         POP, ROCK, RAP, CLASICA, REGGEATON, OTRO
     }

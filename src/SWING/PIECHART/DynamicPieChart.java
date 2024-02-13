@@ -5,9 +5,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,17 +12,18 @@ import javax.swing.SwingUtilities;
 
 public class DynamicPieChart extends JFrame {
 
-    private int[] data = {0, 0, 0, 0};
+    private int[] data;
     private Color[] colors = {new Color(43, 49, 171), new Color(224, 198, 25), new Color(235, 165, 61)};
 
     public DynamicPieChart(String title, int[] data) {
         super(title);
         setSize(400, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.data = data;
 
         setLocationRelativeTo(null);
 
-       getContentPane().setBackground(new Color(22, 29, 94));
+        getContentPane().setBackground(new Color(22, 29, 94));
 
         JLabel deportivo = new JLabel("Deportivo");
         deportivo.setForeground(new Color(43, 49, 171));

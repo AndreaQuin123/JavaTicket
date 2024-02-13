@@ -4,6 +4,7 @@
  */
 package SWING;
 
+import EVENTOS_USUARIOS.EventosMetodos;
 import EVENTOS_USUARIOS.Usuario;
 import EVENTOS_USUARIOS.UsuariosMetodos;
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ public class AdminUsuario_Menu extends javax.swing.JFrame {
     private ArrayList<Usuario> usuariosArray;
     private String name;
     private UsuariosMetodos funcionUsuario;
+     private EventosMetodos funcionEvento;
+
 
     public AdminUsuario_Menu(ArrayList<Usuario> usuarios, String name, UsuariosMetodos UsuarioFuncion) {
         usuariosArray = usuarios != null ? usuarios : new ArrayList<Usuario>();
@@ -96,7 +99,7 @@ public class AdminUsuario_Menu extends javax.swing.JFrame {
         int usuarioEleccion = JOptionPane.showConfirmDialog(null, "Desea regresar al menu principal?", "REGRESAR AL MENU", JOptionPane.YES_NO_OPTION);
 
         if (usuarioEleccion == JOptionPane.YES_OPTION) {
-            MainMenu_Admin pasar = new MainMenu_Admin(usuariosArray, name, funcionUsuario);
+            MainMenu_Admin pasar = new MainMenu_Admin(usuariosArray, name, funcionUsuario, funcionEvento);
             pasar.setVisible(true);
             this.setVisible(false);
             
@@ -119,7 +122,7 @@ public class AdminUsuario_Menu extends javax.swing.JFrame {
         String usuarioViejo = JOptionPane.showInputDialog(null, "Inserte el usuario que desea editar.");
         String passwordViejo = JOptionPane.showInputDialog(null, "Inserte la contraseña del usuario.");
         
-        
+       
         boolean usuario = funcionUsuario.revisarUsuario(usuarioViejo, passwordViejo );
 
         if (usuario){

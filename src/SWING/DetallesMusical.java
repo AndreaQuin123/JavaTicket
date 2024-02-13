@@ -35,6 +35,8 @@ public class DetallesMusical extends javax.swing.JFrame {
 
         initComponents();
 
+        setLocationRelativeTo(null);
+        
         String miembro;
         String instrumento;
 
@@ -114,7 +116,8 @@ public class DetallesMusical extends javax.swing.JFrame {
         jComboBox1.setBackground(new java.awt.Color(245, 245, 245));
         jComboBox1.setForeground(new java.awt.Color(0, 0, 0));
         jComboBox1.setModel(new DefaultComboBoxModel<>(TipoMusical.values()));
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(356, 38, 248, 45));
+        jComboBox1.setBorder(null);
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, 240, 30));
 
         InstrumentosTextbox5.setBackground(new java.awt.Color(245, 245, 245));
         InstrumentosTextbox5.setForeground(new java.awt.Color(0, 0, 0));
@@ -238,18 +241,20 @@ public class DetallesMusical extends javax.swing.JFrame {
         }
 
         System.out.println("Miembros: " + miembrosInstrumentos.keySet() + "\nInstrumentos:" + miembrosInstrumentos.values() + "\ntipoMusical:" + tipoMusical);
-
+        
+        EditarEvento_AdminContenido.miembrosInstrumentos=eventoMusical.getMembersAndInstruments();
+        
         if ((!MiembrosTextbox1.getText().isEmpty() && !InstrumentosTextbox1.getText().isEmpty())
                 || (!MiembrosTextbox2.getText().isEmpty() && !InstrumentosTextbox2.getText().isEmpty())
                 || (!MiembrosTextbox3.getText().isEmpty() && !InstrumentosTextbox3.getText().isEmpty())
                 || (!MiembrosTextbox4.getText().isEmpty() && !InstrumentosTextbox4.getText().isEmpty())
                 || (!MiembrosTextbox5.getText().isEmpty() && !InstrumentosTextbox5.getText().isEmpty())) {
-
+            
             this.dispose();
             
         } else {
 
-            JOptionPane.showMessageDialog(null, "Por favor, inserta minimo UN jugador de cada equipo.");
+            JOptionPane.showMessageDialog(null, "Por favor, insertar minimo UN miembro con su respectivo cargo/instrumento.");
         }
     }//GEN-LAST:event_RegresarBTNActionPerformed
 

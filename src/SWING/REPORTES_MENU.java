@@ -6,6 +6,9 @@ package SWING;
 
 import EVENTOS_USUARIOS.EventosMetodos;
 import EVENTOS_USUARIOS.Usuario;
+import EVENTOS_USUARIOS.UsuarioAdmin;
+import EVENTOS_USUARIOS.UsuarioContenido;
+import EVENTOS_USUARIOS.UsuarioLimitado;
 import EVENTOS_USUARIOS.UsuariosMetodos;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -18,18 +21,20 @@ import javax.swing.JOptionPane;
  * @author vanes
  */
 public class REPORTES_MENU extends javax.swing.JFrame {
+
     private ArrayList<Usuario> usuariosArray;
     private String name;
     private UsuariosMetodos funcionUsuario;
     private EventosMetodos funcionEvento;
 
- 
     public REPORTES_MENU(ArrayList<Usuario> usuarios, String name, UsuariosMetodos UsuarioFuncion) {
         usuariosArray = usuarios != null ? usuarios : new ArrayList<Usuario>();
         usuariosArray = Login.getUsuariosArray();
         this.name = name;
         funcionUsuario = UsuarioFuncion != null ? UsuarioFuncion : new UsuariosMetodos();
         initComponents();
+        setLocationRelativeTo(null);
+
     }
 
     @SuppressWarnings("unchecked")
@@ -47,14 +52,16 @@ public class REPORTES_MENU extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        IngresosBTN.setBorder(null);
         IngresosBTN.setContentAreaFilled(false);
         IngresosBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 IngresosBTNActionPerformed(evt);
             }
         });
-        getContentPane().add(IngresosBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 290, 180, 170));
+        getContentPane().add(IngresosBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 290, 190, 180));
 
+        MiPerfilBTN.setBorder(null);
         MiPerfilBTN.setContentAreaFilled(false);
         MiPerfilBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,6 +70,7 @@ public class REPORTES_MENU extends javax.swing.JFrame {
         });
         getContentPane().add(MiPerfilBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 290, 180, 170));
 
+        EventosFuturosBTN.setBorder(null);
         EventosFuturosBTN.setContentAreaFilled(false);
         EventosFuturosBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,6 +79,7 @@ public class REPORTES_MENU extends javax.swing.JFrame {
         });
         getContentPane().add(EventosFuturosBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 100, 180, 180));
 
+        EventosRealizadosBTN.setBorder(null);
         EventosRealizadosBTN.setContentAreaFilled(false);
         EventosRealizadosBTN.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -84,6 +93,7 @@ public class REPORTES_MENU extends javax.swing.JFrame {
         });
         getContentPane().add(EventosRealizadosBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 180, 180));
 
+        EventosCanceladosBTN.setBorder(null);
         EventosCanceladosBTN.setContentAreaFilled(false);
         EventosCanceladosBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,6 +102,7 @@ public class REPORTES_MENU extends javax.swing.JFrame {
         });
         getContentPane().add(EventosCanceladosBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 180, 170));
 
+        RegresarBTN.setBorder(null);
         RegresarBTN.setContentAreaFilled(false);
         RegresarBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,7 +124,7 @@ public class REPORTES_MENU extends javax.swing.JFrame {
     }//GEN-LAST:event_MiPerfilBTNActionPerformed
 
     private void EventosFuturosBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EventosFuturosBTNActionPerformed
-        REPORTES_EventosFuturos pasar = new REPORTES_EventosFuturos(usuariosArray, name, funcionUsuario);
+        REPORTES_EventosFuturos pasar = new REPORTES_EventosFuturos(usuariosArray, name, funcionUsuario, funcionEvento);
         pasar.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_EventosFuturosBTNActionPerformed
@@ -129,7 +140,7 @@ public class REPORTES_MENU extends javax.swing.JFrame {
     }//GEN-LAST:event_EventosRealizadosBTNActionPerformed
 
     private void EventosCanceladosBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EventosCanceladosBTNActionPerformed
-        REPORTES_EventosCancelados pasar = new REPORTES_EventosCancelados(usuariosArray, name, funcionUsuario);
+        REPORTES_EventosCancelados pasar = new REPORTES_EventosCancelados(usuariosArray, name, funcionUsuario, funcionEvento);
         pasar.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_EventosCanceladosBTNActionPerformed
@@ -139,10 +150,35 @@ public class REPORTES_MENU extends javax.swing.JFrame {
 
         if (usuarioEleccion == JOptionPane.YES_OPTION) {
 
-            MainMenu_Admin pasar = new MainMenu_Admin(usuariosArray, name, funcionUsuario);
-            pasar.setVisible(true);
-            this.setVisible(false);
+            for (int indice = 0; indice < usuariosArray.size(); indice++) {
+                if (usuariosArray.get(indice).getUsuario().equals(name)) {
+                    System.out.println(name);
 
+                    Usuario usuario = usuariosArray.get(indice);
+
+                    if (usuario instanceof UsuarioAdmin) {
+                        MainMenu_Admin pasar = new MainMenu_Admin(usuariosArray, name, funcionUsuario, funcionEvento);
+                        pasar.setVisible(true);
+                        this.setVisible(false);
+                        System.out.println(name);
+                    }
+
+                    if (usuario instanceof UsuarioContenido) {
+                        MainMenu_Contenido pasar = new MainMenu_Contenido(usuariosArray, name, funcionUsuario);
+                        pasar.setVisible(true);
+                        this.setVisible(false);
+                        System.out.println(name);
+                    }
+
+                    if (usuario instanceof UsuarioLimitado) {
+                        MainMenu_Limitado pasar = new MainMenu_Limitado(usuariosArray, name, funcionUsuario, funcionEvento);
+                        pasar.setVisible(true);
+                        this.setVisible(false);
+                        System.out.println(name);
+                    }
+
+                }
+            }
         } else if (usuarioEleccion == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(null, "Se canceló la operación.");
         }

@@ -4,6 +4,7 @@
  */
 package SWING;
 
+import EVENTOS_USUARIOS.EventosMetodos;
 import EVENTOS_USUARIOS.Usuario;
 import EVENTOS_USUARIOS.UsuariosMetodos;
 import java.util.ArrayList;
@@ -16,19 +17,19 @@ import static javax.swing.JOptionPane.YES_NO_OPTION;
  */
 public class MainMenu_Contenido extends javax.swing.JFrame {
 
- private ArrayList<Usuario> usuariosArray;
- private String name;
+    private ArrayList<Usuario> usuariosArray;
+    private String name;
     private UsuariosMetodos funcionUsuario;
- 
- 
+    private EventosMetodos funcionEvento;
+
     public MainMenu_Contenido(ArrayList<Usuario> usuarios, String name, UsuariosMetodos UsuarioFuncion) {
         usuariosArray = usuarios != null ? usuarios : new ArrayList<Usuario>();
         usuariosArray = Login.getUsuariosArray();
         this.name = name;
         funcionUsuario = UsuarioFuncion != null ? UsuarioFuncion : new UsuariosMetodos();
-        
+
         initComponents();
-        
+
         QueDeseaText.setText("QUE DESEA HACER HOY, " + name + "?");
         setLocationRelativeTo(null);
     }
@@ -69,6 +70,11 @@ public class MainMenu_Contenido extends javax.swing.JFrame {
         getContentPane().add(EVENTOSButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 280, 270));
 
         REPORTESButton.setContentAreaFilled(false);
+        REPORTESButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                REPORTESButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(REPORTESButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 170, 280, 270));
 
         jPanel1.setBackground(new java.awt.Color(231, 201, 76));
@@ -107,20 +113,29 @@ public class MainMenu_Contenido extends javax.swing.JFrame {
         int usuarioEleccion = JOptionPane.showConfirmDialog(null, "Al regresar al LOGIN, se quitaria su sesion. Esta de acuerdo con regresar?", "REGRESAR AL MENU", YES_NO_OPTION);
        
         if (usuarioEleccion == JOptionPane.YES_OPTION) {
-            MainMenu_Contenido pasar = new MainMenu_Contenido(usuariosArray, name, funcionUsuario);
+            Login pasar = new Login(usuariosArray, funcionUsuario);
             pasar.setVisible(true);
             this.setVisible(false);
+            
         } else if (usuarioEleccion== JOptionPane.NO_OPTION){
+            
             JOptionPane.showMessageDialog(null, "Se canceló la operación.");
+            
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void EVENTOSButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EVENTOSButtonActionPerformed
-        AdminEvento_Menu pasar = new AdminEvento_Menu(usuariosArray, name, funcionUsuario);
+        AdminEvento_Menu pasar = new AdminEvento_Menu(usuariosArray, name, funcionUsuario, funcionEvento);
         pasar.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_EVENTOSButtonActionPerformed
+
+    private void REPORTESButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPORTESButtonActionPerformed
+        REPORTES_MENU pasar = new REPORTES_MENU(usuariosArray, name, funcionUsuario);
+        pasar.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_REPORTESButtonActionPerformed
 
     /**
      * @param args the command line arguments

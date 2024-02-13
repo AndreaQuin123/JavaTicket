@@ -15,6 +15,7 @@ public class EventoReligioso extends Evento {
         super(codigo, tituloEvento, descripcionEvento, fechaEvento, montoEvento, cantidad);
         this.cantidad = cantidad;
         this.seguro = 2000;
+         this.participantes = new ArrayList<>(); 
     }
 
     //FUNCIONES GET
@@ -32,6 +33,10 @@ public class EventoReligioso extends Evento {
 
     public void setParticipante(String participante) {
         this.participantes.add(participante);
+    }
+
+    public void setParticipantes(ArrayList<String> participantes) {
+        this.participantes = participantes;
     }
 
     public void setSeguro(double seguro) {

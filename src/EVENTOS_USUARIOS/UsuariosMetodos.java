@@ -16,7 +16,11 @@ import static javax.swing.JOptionPane.YES_NO_OPTION;
  */
 public class UsuariosMetodos {
 
-    private ArrayList<Usuario> usuariosArray = Login.getUsuariosArray();
+    private static final ArrayList<Usuario> usuariosArray = Login.getUsuariosArray();
+
+    public static ArrayList<Usuario> getUsuariosArray() {
+        return usuariosArray;
+    }
 
     public boolean buscarUsuario(String usuario) {
         return buscarUsuarioRecursivo(0, usuario);
@@ -42,8 +46,8 @@ public class UsuariosMetodos {
             JOptionPane.showMessageDialog(null, "Un usuario con ese nombre de usuario ya existe, por favor elegir otro usuario.");
             return;
         }
-        
-        if ("admin".equals(usuario)){
+
+        if ("admin".equals(usuario)) {
             JOptionPane.showMessageDialog(null, "Un usuario con ese nombre de usuario ya existe, por favor elegir otro usuario.");
             return;
         }
@@ -70,65 +74,70 @@ public class UsuariosMetodos {
             }
 
         }
-       
+
     }
 
     public boolean revisarUsuario(String usuarioViejo, String passwordViejo) {
+        return revisarUsuarioRecursivo(0, usuarioViejo, passwordViejo);
+    }
 
-        boolean usuarioEncontrado = buscarUsuario(usuarioViejo);
+    private boolean revisarUsuarioRecursivo(int indice, String usuarioViejo, String passwordViejo) {
 
-        if (!usuarioEncontrado) {
+        if (indice >= usuariosArray.size()) {
             JOptionPane.showMessageDialog(null, "Este usuario no existe.");
             return false;
+        }
 
-        } else {
-
-            for (int indice = 0; indice < usuariosArray.size(); indice++) {
-                if (usuariosArray.get(indice).getUsuario().equals(usuarioViejo)) {
-                    if (!usuariosArray.get(indice).getContraseña().equals(passwordViejo)) {
-
-                       JOptionPane.showMessageDialog(null, "La contraseña es incorrecta.");
-                       return false;
-                       
-                    } else {
-                        
-                        return true;
-                    }
-                }
-
+        if (usuariosArray.get(indice).getUsuario().equals(usuarioViejo)) {
+            if (!usuariosArray.get(indice).getContraseña().equals(passwordViejo)) {
+                JOptionPane.showMessageDialog(null, "La contraseña es incorrecta.");
+                return false;
+            } else {
+                return true;
             }
         }
 
-        return false;
+        return revisarUsuarioRecursivo(indice + 1, usuarioViejo, passwordViejo);
     }
 
     public void editarUsuario(String usuario, String nombre, String password, int edad, String nuevoUsuario, String nuevoPassword) {
+        if (usuariosArray == null) {
+            return;
+        }
+
+        boolean usuarioExistente = false;
 
         for (int indice = 0; indice < usuariosArray.size(); indice++) {
+            Usuario currentUsuario = usuariosArray.get(indice);
 
-            boolean usuarioBuscado = buscarUsuario(nuevoUsuario);
+            if (currentUsuario.getUsuario().equals(nuevoUsuario)) {
+                usuarioExistente = true;
+                break;
+            }
+        }
 
-            if (usuarioBuscado) {
-                JOptionPane.showMessageDialog(null, "Un usuario con ese nombre de usuario ya existe, por favor elegir otro usuario.");
-                return;
+        if (usuarioExistente) {
+            JOptionPane.showMessageDialog(null, "Un usuario con ese nombre de usuario ya existe, por favor elegir otro usuario.");
+            return;
+        }
 
-            } else {
+        for (int indice = 0; indice < usuariosArray.size(); indice++) {
+            Usuario currentUsuario = usuariosArray.get(indice);
 
-                usuariosArray.get(indice).setNombre(nombre);
-                usuariosArray.get(indice).setUser(nuevoUsuario);
-                usuariosArray.get(indice).setPassword(nuevoPassword);
-                usuariosArray.get(indice).setEdad(edad);
+            if (currentUsuario.getUsuario().equals(usuario)) {
+                currentUsuario.setNombre(nombre);
+                currentUsuario.setUser(nuevoUsuario);
+                currentUsuario.setPassword(nuevoPassword);
+                currentUsuario.setEdad(edad);
 
                 if (!usuario.equals(nuevoUsuario)) {
-                    JOptionPane.showMessageDialog(null, "El usuario " + usuario + " fue actualizado y se cambio a "+nuevoUsuario+". \nRegresando al menu de usuarios.");
-                    AdminUsuario_Menu pasar = new AdminUsuario_Menu(usuariosArray, "", null);
-                    return;
+                    JOptionPane.showMessageDialog(null, "El usuario " + usuario + " fue actualizado y se cambió a " + nuevoUsuario + ". \nRegresando al menú de usuarios.");
                 } else {
-                    JOptionPane.showMessageDialog(null, "El usuario " + usuario + "fue actualizado. \nRegresando al menu de usuarios.");
-                    AdminUsuario_Menu pasar = new AdminUsuario_Menu(usuariosArray, "", null);
-                    return;
+                    JOptionPane.showMessageDialog(null, "El usuario " + usuario + " fue actualizado.");
                 }
 
+                AdminUsuario_Menu pasar = new AdminUsuario_Menu(usuariosArray, "", null);
+                return;
             }
         }
     }
@@ -153,7 +162,7 @@ public class UsuariosMetodos {
                             return;
                         } else {
                             JOptionPane.showMessageDialog(null, "Se canceló la operación.");
-                        return;
+                            return;
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "La contraseña no es correcta.");
@@ -161,8 +170,7 @@ public class UsuariosMetodos {
                     }
                 }
             }
-        } 
+        }
     }
-
 
 }

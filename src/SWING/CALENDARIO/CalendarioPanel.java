@@ -4,7 +4,9 @@ import EVENTOS_USUARIOS.EventosMetodos;
 import EVENTOS_USUARIOS.Usuario;
 import EVENTOS_USUARIOS.UsuariosMetodos;
 import SWING.CrearEvento_AdminContenido;
+import SWING.EditarEvento_AdminContenido;
 import SWING.Login;
+import SWING.REPORTES_Ingresos;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,11 +51,14 @@ public class CalendarioPanel extends javax.swing.JLayeredPane {
         Icon icon = new ImageIcon(getClass().getClassLoader().getResource("IMAGENES/STAR_Icon.png"));
         dia.setIcon(icon);
         fechaSeleccionada = dia.getFecha();
-        CrearEvento_AdminContenido creatorInstance = new CrearEvento_AdminContenido(usuariosArray, "", funcionUsuario, funcionEvento);
-        creatorInstance.selectedDate = fechaSeleccionada;
+        CrearEvento_AdminContenido.selectedDate = fechaSeleccionada;
+        EditarEvento_AdminContenido.selectedDate = fechaSeleccionada;
+        REPORTES_Ingresos.selectedDate = fechaSeleccionada;
+
+        
         System.out.println(fechaSeleccionada);
     }
-    
+
     public Date getFechaSeleccionada(){
         return fechaSeleccionada;
     }

@@ -6,6 +6,8 @@ package SWING;
 
 import EVENTOS_USUARIOS.EventosMetodos;
 import EVENTOS_USUARIOS.Usuario;
+import EVENTOS_USUARIOS.UsuarioAdmin;
+import EVENTOS_USUARIOS.UsuarioContenido;
 import EVENTOS_USUARIOS.UsuariosMetodos;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -27,33 +29,34 @@ public class CancelarEvento_AdminContenido extends javax.swing.JFrame {
         funcionUsuario = UsuarioFuncion != null ? UsuarioFuncion : new UsuariosMetodos();
         funcionEvento = EventoFuncion != null ? EventoFuncion : new EventosMetodos();
         initComponents();
+                setLocationRelativeTo(null);
+
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        CrearBTN = new javax.swing.JButton();
+        CancelarBTN = new javax.swing.JButton();
         RegresarBTN = new javax.swing.JButton();
         PasswordTextbox = new javax.swing.JTextField();
         CodigoTextbox = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        CrearBTN.setBackground(new java.awt.Color(231, 201, 76));
-        CrearBTN.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        CrearBTN.setForeground(new java.awt.Color(40, 60, 100));
-        CrearBTN.setText("CANCELAR");
-        CrearBTN.setBorder(null);
-        CrearBTN.addActionListener(new java.awt.event.ActionListener() {
+        CancelarBTN.setBackground(new java.awt.Color(231, 201, 76));
+        CancelarBTN.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        CancelarBTN.setForeground(new java.awt.Color(40, 60, 100));
+        CancelarBTN.setText("CANCELAR");
+        CancelarBTN.setBorder(null);
+        CancelarBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CrearBTNActionPerformed(evt);
+                CancelarBTNActionPerformed(evt);
             }
         });
-        getContentPane().add(CrearBTN);
-        CrearBTN.setBounds(410, 470, 150, 50);
+        getContentPane().add(CancelarBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 470, 150, 50));
 
         RegresarBTN.setContentAreaFilled(false);
         RegresarBTN.addActionListener(new java.awt.event.ActionListener() {
@@ -61,26 +64,20 @@ public class CancelarEvento_AdminContenido extends javax.swing.JFrame {
                 RegresarBTNActionPerformed(evt);
             }
         });
-        getContentPane().add(RegresarBTN);
-        RegresarBTN.setBounds(20, 470, 180, 50);
+        getContentPane().add(RegresarBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, 180, 50));
 
-        PasswordTextbox.setEditable(false);
         PasswordTextbox.setBackground(new java.awt.Color(245, 245, 245));
         PasswordTextbox.setForeground(new java.awt.Color(0, 0, 0));
         PasswordTextbox.setBorder(null);
-        getContentPane().add(PasswordTextbox);
-        PasswordTextbox.setBounds(450, 380, 210, 40);
+        getContentPane().add(PasswordTextbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 380, 210, 40));
 
-        CodigoTextbox.setEditable(false);
         CodigoTextbox.setBackground(new java.awt.Color(245, 245, 245));
         CodigoTextbox.setForeground(new java.awt.Color(0, 0, 0));
         CodigoTextbox.setBorder(null);
-        getContentPane().add(CodigoTextbox);
-        CodigoTextbox.setBounds(450, 310, 210, 40);
+        getContentPane().add(CodigoTextbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 310, 210, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/BG_CancelarEventos.png"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 960, 540);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -90,16 +87,30 @@ public class CancelarEvento_AdminContenido extends javax.swing.JFrame {
 
         if (usuarioEleccion == JOptionPane.YES_OPTION) {
 
-            MainMenu_Admin pasar = new MainMenu_Admin(usuariosArray, name, funcionUsuario);
-            pasar.setVisible(true);
-            this.setVisible(false);
+            for (int indice = 0; indice < usuariosArray.size(); indice++) {
+                if (usuariosArray.get(indice).getUsuario().equals(name)) {
 
+                    Usuario usuario = usuariosArray.get(indice);
+
+                    if (usuario instanceof UsuarioAdmin) {
+                        MainMenu_Admin pasar = new MainMenu_Admin(usuariosArray, name, funcionUsuario, funcionEvento);
+                        pasar.setVisible(true);
+                        this.setVisible(false);
+                    }
+
+                    if (usuario instanceof UsuarioContenido) {
+                        MainMenu_Contenido pasar = new MainMenu_Contenido(usuariosArray, name, funcionUsuario);
+                        pasar.setVisible(true);
+                        this.setVisible(false);
+                    }
+                }
+            }
         } else if (usuarioEleccion == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(null, "Se canceló la operación.");
         }
     }//GEN-LAST:event_RegresarBTNActionPerformed
 
-    private void CrearBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearBTNActionPerformed
+    private void CancelarBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarBTNActionPerformed
 
         String codigo = CodigoTextbox.getText();
         String password = PasswordTextbox.getText();
@@ -107,7 +118,7 @@ public class CancelarEvento_AdminContenido extends javax.swing.JFrame {
         funcionEvento.EliminarEvento(codigo, name, password);
                 
                 
-    }//GEN-LAST:event_CrearBTNActionPerformed
+    }//GEN-LAST:event_CancelarBTNActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,8 +156,8 @@ public class CancelarEvento_AdminContenido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CancelarBTN;
     private javax.swing.JTextField CodigoTextbox;
-    private javax.swing.JButton CrearBTN;
     private javax.swing.JTextField PasswordTextbox;
     private javax.swing.JButton RegresarBTN;
     private javax.swing.JLabel jLabel1;

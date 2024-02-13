@@ -1,4 +1,3 @@
-
 package SWING;
 
 import EVENTOS_USUARIOS.Evento;
@@ -12,6 +11,7 @@ import SWING.PIECHART.DynamicPieChart;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class REPORTES_EventosFuturos extends javax.swing.JFrame {
 
@@ -19,66 +19,84 @@ public class REPORTES_EventosFuturos extends javax.swing.JFrame {
     private String name;
     private UsuariosMetodos funcionUsuario;
     private EventosMetodos funcionEvento;
+    public static ArrayList<Evento> eventosCancelados;
+    public static ArrayList<Evento> eventos;
+
     StringBuilder eventosRealizados = new StringBuilder();
-        int montoDeportivo = 0;
+    int montoDeportivo = 0;
     int montoReligioso = 0;
     int montoMusical = 0;
 
     int indice = 0;
 
-    public REPORTES_EventosFuturos(ArrayList<Usuario> usuarios, String name, UsuariosMetodos UsuarioFuncion) {
+    public REPORTES_EventosFuturos(ArrayList<Usuario> usuarios, String name, UsuariosMetodos UsuarioFuncion, EventosMetodos EventoFuncion) {
         usuariosArray = usuarios != null ? usuarios : new ArrayList<Usuario>();
         usuariosArray = Login.getUsuariosArray();
         this.name = name;
         funcionUsuario = UsuarioFuncion != null ? UsuarioFuncion : new UsuariosMetodos();
-        initComponents();
+        funcionEvento = EventoFuncion != null ? EventoFuncion : new EventosMetodos();
 
-        Date today = new Date();
-        
+        eventosCancelados = funcionEvento.eventosCancelados();
+        eventos = funcionEvento.eventos();
 
-        for (Usuario usuario : usuariosArray) {
-            for (Evento evento : usuario.getListaEventos()) {
-                if (evento.getFecha().after(today)) {
-                    indice++;
-
-                    eventosRealizados.append(indice).append(") ");
-                    eventosRealizados.append("Codigo: ").append(evento.getCodigo()).append(" - ");
-
-                    if (evento instanceof EventoDeportivo) {
-                        EventoDeportivo deportivoEvento = (EventoDeportivo) evento;
-
-                        eventosRealizados.append("Tipo: ").append(deportivoEvento.getTipoDeporte()).append(" - ");
-                        eventosRealizados.append("Titulo: ").append(deportivoEvento.getTitulo()).append(" - ");
-                        eventosRealizados.append("Fecha: ").append(deportivoEvento.getFecha()).append(" - ");
-                        eventosRealizados.append("Monto: ").append(deportivoEvento.getMonto()).append("\n");
-                        
-                        montoDeportivo++;
-                    }
-
-                    if (evento instanceof EventoMusical) {
-                        EventoMusical musicalEvento = (EventoMusical) evento;
-
-                        eventosRealizados.append("Tipo: ").append(musicalEvento.getTipoMusical()).append(" - ");
-                        eventosRealizados.append("Titulo: ").append(musicalEvento.getTitulo()).append(" - ");
-                        eventosRealizados.append("Fecha: ").append(musicalEvento.getFecha()).append(" - ");
-                        eventosRealizados.append("Monto: ").append(musicalEvento.getMonto()).append("\n");
-                        
-                        montoMusical++;
-                    }
-
-                    if (evento instanceof EventoReligioso) {
-                        EventoReligioso religiosoEvento = (EventoReligioso) evento;
-
-                        eventosRealizados.append("Titulo: ").append(religiosoEvento.getTitulo()).append(" - ");
-                        eventosRealizados.append("Fecha: ").append(religiosoEvento.getFecha()).append(" - ");
-                        eventosRealizados.append("Monto: ").append(religiosoEvento.getMonto()).append("\n");
-                        montoReligioso++;
-                    }
-
-                }
-            }
+        if (eventos == null) {
+            eventos = new ArrayList<Evento>();
         }
 
+        if (eventosCancelados == null) {
+            eventosCancelados = new ArrayList<Evento>();
+        }
+
+        initComponents();
+
+        setLocationRelativeTo(null);
+
+        Date today = new Date();
+
+        for (Evento evento : eventos) {
+            if (evento.getFecha().after(today)) {
+                indice++;
+
+                eventosRealizados.append(indice).append(") ");
+                eventosRealizados.append("Codigo: ").append(evento.getCodigo()).append(" - ");
+
+                if (evento instanceof EventoDeportivo) {
+                    EventoDeportivo deportivoEvento = (EventoDeportivo) evento;
+
+                    eventosRealizados.append("Tipo de Evento: ").append("DEPORTIVO").append(" - ");
+                    eventosRealizados.append("Tipo: ").append(deportivoEvento.getTipoDeporte()).append(" - ");
+                    eventosRealizados.append("Titulo: ").append(deportivoEvento.getTitulo()).append(" - ");
+                    eventosRealizados.append("Fecha: ").append(deportivoEvento.getFecha()).append(" - ");
+                    eventosRealizados.append("Monto: ").append(deportivoEvento.getMonto()).append("\n");
+
+                    montoDeportivo++;
+                }
+
+                if (evento instanceof EventoMusical) {
+                    EventoMusical musicalEvento = (EventoMusical) evento;
+
+                    eventosRealizados.append("Tipo de Evento: ").append("MUSICAL").append(" - ");
+                    eventosRealizados.append("Tipo: ").append(musicalEvento.getTipoMusical()).append(" - ");
+                    eventosRealizados.append("Titulo: ").append(musicalEvento.getTitulo()).append(" - ");
+                    eventosRealizados.append("Fecha: ").append(musicalEvento.getFecha()).append(" - ");
+                    eventosRealizados.append("Monto: ").append(musicalEvento.getMonto()).append("\n");
+
+                    montoMusical++;
+                }
+
+                if (evento instanceof EventoReligioso) {
+                    EventoReligioso religiosoEvento = (EventoReligioso) evento;
+
+                    eventosRealizados.append("Tipo de Evento: ").append("RELIGIOSO").append(" - ");
+                    eventosRealizados.append("Titulo: ").append(religiosoEvento.getTitulo()).append(" - ");
+                    eventosRealizados.append("Fecha: ").append(religiosoEvento.getFecha()).append(" - ");
+                    eventosRealizados.append("Monto: ").append(religiosoEvento.getMonto()).append("\n");
+                    
+                    montoReligioso++;
+                }
+
+            }
+        }
         Eventos.setText(eventosRealizados.toString());
 
     }
@@ -87,6 +105,7 @@ public class REPORTES_EventosFuturos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        RegresarBTN = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Eventos = new javax.swing.JTextArea();
@@ -94,6 +113,14 @@ public class REPORTES_EventosFuturos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        RegresarBTN.setContentAreaFilled(false);
+        RegresarBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegresarBTNActionPerformed(evt);
+            }
+        });
+        getContentPane().add(RegresarBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, 180, 50));
 
         jButton1.setBackground(new java.awt.Color(200, 200, 200));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/graph_ICON (3) (1).png"))); // NOI18N
@@ -114,6 +141,7 @@ public class REPORTES_EventosFuturos extends javax.swing.JFrame {
         Eventos.setBackground(new java.awt.Color(245, 245, 245));
         Eventos.setColumns(20);
         Eventos.setRows(5);
+        Eventos.setBorder(null);
         jScrollPane1.setViewportView(Eventos);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 630, 330));
@@ -130,13 +158,30 @@ public class REPORTES_EventosFuturos extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        DynamicPieChart grafico = new DynamicPieChart("EVENTOS REALIZADOS - GRAFICO", new int[] {montoDeportivo, montoReligioso, montoMusical});
+    try {
+        DynamicPieChart grafico = new DynamicPieChart("EVENTOS FUTUROS - GRAFICO", new int[]{montoDeportivo, montoReligioso, montoMusical});
         grafico.setVisible(true);
         grafico.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+    } catch (Exception ex) {
+        ex.printStackTrace();
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-  
-   
+    private void RegresarBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegresarBTNActionPerformed
+        int usuarioEleccion = JOptionPane.showConfirmDialog(null, "Desea regresar al menu de REPORTES?", "REGRESAR AL MENU", JOptionPane.YES_NO_OPTION);
+
+        if (usuarioEleccion == JOptionPane.YES_OPTION) {
+
+            REPORTES_MENU pasar = new REPORTES_MENU(usuariosArray, name, funcionUsuario);
+            pasar.setVisible(true);
+            this.setVisible(false);
+
+        } else if (usuarioEleccion == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "Se canceló la operación.");
+        }
+    }//GEN-LAST:event_RegresarBTNActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -164,7 +209,7 @@ public class REPORTES_EventosFuturos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new REPORTES_EventosFuturos(new ArrayList<Usuario>(), "", new UsuariosMetodos()).setVisible(true);
+                new REPORTES_EventosFuturos(new ArrayList<Usuario>(), "", new UsuariosMetodos(), new EventosMetodos()).setVisible(true);
             }
         });
     }
@@ -172,6 +217,7 @@ public class REPORTES_EventosFuturos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea Eventos;
     private javax.swing.JLabel ListaEventos;
+    private javax.swing.JButton RegresarBTN;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

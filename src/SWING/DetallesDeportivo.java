@@ -84,6 +84,7 @@ public class DetallesDeportivo extends javax.swing.JFrame {
         jComboBox1.setBackground(new java.awt.Color(245, 245, 245));
         jComboBox1.setForeground(new java.awt.Color(0, 0, 0));
         jComboBox1.setModel(new DefaultComboBoxModel<>(TipoDeporte.values()));
+        jComboBox1.setBorder(null);
         getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, 220, 30));
 
         RegresarBTN.setContentAreaFilled(false);
@@ -94,19 +95,16 @@ public class DetallesDeportivo extends javax.swing.JFrame {
         });
         getContentPane().add(RegresarBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 470, 480, 51));
 
-        Equipo1Textbox.setEditable(false);
         Equipo1Textbox.setBackground(new java.awt.Color(245, 245, 245));
         Equipo1Textbox.setForeground(new java.awt.Color(0, 0, 0));
         Equipo1Textbox.setBorder(null);
         getContentPane().add(Equipo1Textbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, 200, 30));
 
-        JugadorTextbox11.setEditable(false);
         JugadorTextbox11.setBackground(new java.awt.Color(245, 245, 245));
         JugadorTextbox11.setForeground(new java.awt.Color(0, 0, 0));
         JugadorTextbox11.setBorder(null);
         getContentPane().add(JugadorTextbox11, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, 200, 30));
 
-        JugadorTextbox12.setEditable(false);
         JugadorTextbox12.setBackground(new java.awt.Color(245, 245, 245));
         JugadorTextbox12.setForeground(new java.awt.Color(0, 0, 0));
         JugadorTextbox12.setBorder(null);
@@ -117,7 +115,6 @@ public class DetallesDeportivo extends javax.swing.JFrame {
         });
         getContentPane().add(JugadorTextbox12, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, 200, 30));
 
-        JugadorTextbox13.setEditable(false);
         JugadorTextbox13.setBackground(new java.awt.Color(245, 245, 245));
         JugadorTextbox13.setForeground(new java.awt.Color(0, 0, 0));
         JugadorTextbox13.setBorder(null);
@@ -128,31 +125,26 @@ public class DetallesDeportivo extends javax.swing.JFrame {
         });
         getContentPane().add(JugadorTextbox13, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 290, 200, 30));
 
-        JugadorTextbox14.setEditable(false);
         JugadorTextbox14.setBackground(new java.awt.Color(245, 245, 245));
         JugadorTextbox14.setForeground(new java.awt.Color(0, 0, 0));
         JugadorTextbox14.setBorder(null);
         getContentPane().add(JugadorTextbox14, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, 200, 30));
 
-        JugadorTextbox15.setEditable(false);
         JugadorTextbox15.setBackground(new java.awt.Color(245, 245, 245));
         JugadorTextbox15.setForeground(new java.awt.Color(0, 0, 0));
         JugadorTextbox15.setBorder(null);
         getContentPane().add(JugadorTextbox15, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 400, 200, 30));
 
-        Equipo2Textbox.setEditable(false);
         Equipo2Textbox.setBackground(new java.awt.Color(245, 245, 245));
         Equipo2Textbox.setForeground(new java.awt.Color(0, 0, 0));
         Equipo2Textbox.setBorder(null);
         getContentPane().add(Equipo2Textbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, 200, 30));
 
-        JugadorTextbox21.setEditable(false);
         JugadorTextbox21.setBackground(new java.awt.Color(245, 245, 245));
         JugadorTextbox21.setForeground(new java.awt.Color(0, 0, 0));
         JugadorTextbox21.setBorder(null);
         getContentPane().add(JugadorTextbox21, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 180, 200, 30));
 
-        JugadorTextbox22.setEditable(false);
         JugadorTextbox22.setBackground(new java.awt.Color(245, 245, 245));
         JugadorTextbox22.setForeground(new java.awt.Color(0, 0, 0));
         JugadorTextbox22.setBorder(null);
@@ -163,13 +155,11 @@ public class DetallesDeportivo extends javax.swing.JFrame {
         });
         getContentPane().add(JugadorTextbox22, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 230, 200, 30));
 
-        JugadorTextbox23.setEditable(false);
         JugadorTextbox23.setBackground(new java.awt.Color(245, 245, 245));
         JugadorTextbox23.setForeground(new java.awt.Color(0, 0, 0));
         JugadorTextbox23.setBorder(null);
         getContentPane().add(JugadorTextbox23, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 290, 190, 30));
 
-        JugadorTextbox24.setEditable(false);
         JugadorTextbox24.setBackground(new java.awt.Color(245, 245, 245));
         JugadorTextbox24.setForeground(new java.awt.Color(0, 0, 0));
         JugadorTextbox24.setBorder(null);
@@ -180,7 +170,6 @@ public class DetallesDeportivo extends javax.swing.JFrame {
         });
         getContentPane().add(JugadorTextbox24, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 340, 200, 30));
 
-        JugadorTextbox25.setEditable(false);
         JugadorTextbox25.setBackground(new java.awt.Color(245, 245, 245));
         JugadorTextbox25.setForeground(new java.awt.Color(0, 0, 0));
         JugadorTextbox25.setBorder(null);
@@ -300,7 +289,14 @@ public class DetallesDeportivo extends javax.swing.JFrame {
             }
         }
 
-        if ((!JugadorTextbox12.getText().isEmpty()
+        EditarEvento_AdminContenido.tipoDeporte = tipoDeporte;
+        EditarEvento_AdminContenido.jugadores1 = jugadores1;
+        EditarEvento_AdminContenido.jugadores2 = jugadores2;
+        EditarEvento_AdminContenido.equipo1 = nuevoEquipo1;
+        EditarEvento_AdminContenido.equipo2 = nuevoEquipo2;
+
+        if ((!JugadorTextbox11.getText().isEmpty()
+                || !JugadorTextbox12.getText().isEmpty()
                 || !JugadorTextbox13.getText().isEmpty()
                 || !JugadorTextbox14.getText().isEmpty()
                 || !JugadorTextbox15.getText().isEmpty())
@@ -309,11 +305,11 @@ public class DetallesDeportivo extends javax.swing.JFrame {
                 || !JugadorTextbox23.getText().isEmpty()
                 || !JugadorTextbox24.getText().isEmpty()
                 || !JugadorTextbox25.getText().isEmpty())) {
-            
+
             this.dispose();
-            
+
         } else {
-            
+
             JOptionPane.showMessageDialog(null, "Por favor, inserta minimo UN jugador de cada equipo.");
         }
     }//GEN-LAST:event_RegresarBTNActionPerformed

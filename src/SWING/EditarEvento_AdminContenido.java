@@ -10,9 +10,10 @@ import EVENTOS_USUARIOS.EventoMusical;
 import EVENTOS_USUARIOS.EventoReligioso;
 import EVENTOS_USUARIOS.EventosMetodos;
 import EVENTOS_USUARIOS.Usuario;
+import EVENTOS_USUARIOS.UsuarioAdmin;
+import EVENTOS_USUARIOS.UsuarioContenido;
 import EVENTOS_USUARIOS.UsuariosMetodos;
 import SWING.CALENDARIO.CalendarioPanel;
-import java.awt.List;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,37 +37,75 @@ public class EditarEvento_AdminContenido extends javax.swing.JFrame {
     public static ArrayList<String> jugadores2;
     public static String tipoDeporte;
     public static String tipoMusical;
-    public static ArrayList<String> partipantes;
-    public static HashMap<String, String> miembrosInstruments;
+    public static ArrayList<String> participantes;
+    public static HashMap<String, String> miembrosInstrumentos;
     public static String miembro;
     public static String instrumento;
-
-    private ArrayList<Evento> eventos;
-
     private EventosMetodos funcionEvento;
+    public static ArrayList<Evento> eventos;
+    public static ArrayList<Evento> eventosCancelados;
+
     public static Date selectedDate;
 
-    public EditarEvento_AdminContenido(ArrayList<Usuario> usuarios, String name, UsuariosMetodos UsuarioFuncion, String codigoEvento) {
+    public EditarEvento_AdminContenido(ArrayList<Usuario> usuarios, String name, UsuariosMetodos UsuarioFuncion, String codigoEvento, EventosMetodos Eventofuncion) {
         usuariosArray = usuarios != null ? usuarios : new ArrayList<Usuario>();
         this.name = name;
         this.codigoEvento = codigoEvento;
         funcionUsuario = UsuarioFuncion != null ? UsuarioFuncion : new UsuariosMetodos();
+        funcionEvento = Eventofuncion != null ? Eventofuncion : new EventosMetodos();
+
+        eventosCancelados = funcionEvento.eventosCancelados();
+        eventos = funcionEvento.eventos();
 
         initComponents();
 
+        setLocationRelativeTo(null);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd/MM/yy");
+
+        boolean eventoEncontrado = false;
+
         for (int indice = 0; indice < usuariosArray.size(); indice++) {
             if (usuariosArray.get(indice).getUsuario().equals(name)) {
-                for (Evento evento : eventos) {
-                    if (evento.getCodigo().equals(codigoEvento)) {
-                        CantidadTextbox.setText(String.valueOf(evento.getCantidad()));
-                        DescTextArea.setText(evento.getDescripcion());
-                        FechaTextbox.setText(evento.getFecha().toString());
-                        MontoTextbox.setText(String.valueOf(evento.getMonto()));
-                        TituloTextbox.setText(evento.getTitulo());
+                if (usuariosArray.get(indice).getListaEventos() != null) {
+                    ArrayList<Evento> eventos = usuariosArray.get(indice).getListaEventos();
+
+                    for (Evento evento : eventos) {
+                        if (evento.getCodigo().equals(codigoEvento)) {
+                            CantidadTextbox.setText(String.valueOf(evento.getCantidad()));
+                            DescTextArea.setText(evento.getDescripcion());
+                            FechaTextbox.setText(dateFormat.format(evento.getFecha()));
+                            MontoTextbox.setText(String.valueOf(evento.getMonto()));
+                            TituloTextbox.setText(evento.getTitulo());
+
+                            eventoEncontrado = true;
+                            break;
+                        }
                     }
                 }
             }
         }
+
+        for (Evento evento : eventosCancelados) {
+            if (evento.getCodigo().equals(codigoEvento)) {
+                CantidadTextbox.setText(String.valueOf(evento.getCantidad()));
+                DescTextArea.setText(evento.getDescripcion());
+                FechaTextbox.setText(dateFormat.format(evento.getFecha()));
+                MontoTextbox.setText(String.valueOf(evento.getMonto()));
+                TituloTextbox.setText(evento.getTitulo());
+                eventoEncontrado = true;
+
+            }
+        }
+
+        if (!eventoEncontrado) {
+            JOptionPane.showMessageDialog(null, "El evento no existe o este usuario no es el dueño.");
+
+            AdminEvento_Menu pasar = new AdminEvento_Menu(usuariosArray, name, funcionUsuario, funcionEvento);
+            pasar.setVisible(true);
+            this.setVisible(false);
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -87,7 +126,7 @@ public class EditarEvento_AdminContenido extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setBackground(new java.awt.Color(214, 215, 226));
         jLabel3.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
@@ -95,17 +134,16 @@ public class EditarEvento_AdminContenido extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("CANTIDAD:");
         jLabel3.setOpaque(true);
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(140, 120, 120, 40);
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 120, 40));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/STAR_Calendar (2).png"))); // NOI18N
+        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel4MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(470, 250, 30, 30);
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, -1, -1));
 
         EditarDetallesBTN.setContentAreaFilled(false);
         EditarDetallesBTN.addActionListener(new java.awt.event.ActionListener() {
@@ -113,8 +151,7 @@ public class EditarEvento_AdminContenido extends javax.swing.JFrame {
                 EditarDetallesBTNActionPerformed(evt);
             }
         });
-        getContentPane().add(EditarDetallesBTN);
-        EditarDetallesBTN.setBounds(490, 370, 230, 50);
+        getContentPane().add(EditarDetallesBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 370, 230, 50));
 
         ConfirmarBTN.setContentAreaFilled(false);
         ConfirmarBTN.addActionListener(new java.awt.event.ActionListener() {
@@ -122,8 +159,7 @@ public class EditarEvento_AdminContenido extends javax.swing.JFrame {
                 ConfirmarBTNActionPerformed(evt);
             }
         });
-        getContentPane().add(ConfirmarBTN);
-        ConfirmarBTN.setBounds(250, 370, 200, 50);
+        getContentPane().add(ConfirmarBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 370, 200, 50));
 
         RegresarBTN.setContentAreaFilled(false);
         RegresarBTN.addActionListener(new java.awt.event.ActionListener() {
@@ -131,8 +167,7 @@ public class EditarEvento_AdminContenido extends javax.swing.JFrame {
                 RegresarBTNActionPerformed(evt);
             }
         });
-        getContentPane().add(RegresarBTN);
-        RegresarBTN.setBounds(20, 470, 180, 50);
+        getContentPane().add(RegresarBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, 180, 50));
 
         DescTextArea.setBackground(new java.awt.Color(245, 245, 245));
         DescTextArea.setColumns(20);
@@ -140,37 +175,31 @@ public class EditarEvento_AdminContenido extends javax.swing.JFrame {
         DescTextArea.setBorder(null);
         jScrollPane1.setViewportView(DescTextArea);
 
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(568, 160, 230, 170);
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(568, 160, 230, 170));
 
         MontoTextbox.setBackground(new java.awt.Color(245, 245, 245));
         MontoTextbox.setForeground(new java.awt.Color(0, 0, 0));
         MontoTextbox.setBorder(null);
-        getContentPane().add(MontoTextbox);
-        MontoTextbox.setBounds(280, 310, 220, 30);
+        getContentPane().add(MontoTextbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, 220, 30));
 
+        FechaTextbox.setEditable(false);
         FechaTextbox.setBackground(new java.awt.Color(245, 245, 245));
         FechaTextbox.setForeground(new java.awt.Color(0, 0, 0));
         FechaTextbox.setBorder(null);
-        getContentPane().add(FechaTextbox);
-        FechaTextbox.setBounds(280, 250, 220, 30);
+        getContentPane().add(FechaTextbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 250, 180, 30));
 
         TituloTextbox.setBackground(new java.awt.Color(245, 245, 245));
         TituloTextbox.setForeground(new java.awt.Color(0, 0, 0));
         TituloTextbox.setBorder(null);
-        getContentPane().add(TituloTextbox);
-        TituloTextbox.setBounds(280, 190, 220, 30);
+        getContentPane().add(TituloTextbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, 220, 30));
 
-        CantidadTextbox.setEditable(false);
         CantidadTextbox.setBackground(new java.awt.Color(245, 245, 245));
         CantidadTextbox.setForeground(new java.awt.Color(0, 0, 0));
         CantidadTextbox.setBorder(null);
-        getContentPane().add(CantidadTextbox);
-        CantidadTextbox.setBounds(280, 130, 220, 30);
+        getContentPane().add(CantidadTextbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 220, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/BG_EditarEventos.png"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 960, 540);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -180,21 +209,41 @@ public class EditarEvento_AdminContenido extends javax.swing.JFrame {
 
         if (usuarioEleccion == JOptionPane.YES_OPTION) {
 
-            MainMenu_Admin pasar = new MainMenu_Admin(usuariosArray, name, funcionUsuario);
-            pasar.setVisible(true);
-            this.setVisible(false);
+            for (int indice = 0; indice < usuariosArray.size(); indice++) {
+                if (usuariosArray.get(indice).getUsuario().equals(name)) {
+                    System.out.println(name);
 
+                    Usuario usuario = usuariosArray.get(indice);
+
+                    if (usuario instanceof UsuarioAdmin) {
+                        MainMenu_Admin pasar = new MainMenu_Admin(usuariosArray, name, funcionUsuario, funcionEvento);
+                        pasar.setVisible(true);
+                        this.setVisible(false);
+                        System.out.println(name);
+                    }
+
+                    if (usuario instanceof UsuarioContenido) {
+                        MainMenu_Contenido pasar = new MainMenu_Contenido(usuariosArray, name, funcionUsuario);
+                        pasar.setVisible(true);
+                        this.setVisible(false);
+                        System.out.println(name);
+                    }
+                }
+            }
         } else if (usuarioEleccion == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(null, "Se canceló la operación.");
         }
     }//GEN-LAST:event_RegresarBTNActionPerformed
 
     private void ConfirmarBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmarBTNActionPerformed
+        
         for (int indice = 0; indice < usuariosArray.size(); indice++) {
-            if (usuariosArray.get(indice).getUsuario().equals(name)) {
-                ArrayList<Evento> eventos = usuariosArray.get(indice).getListaEventos();
+            Usuario usuario = usuariosArray.get(indice);
+            if (usuario != null && usuario.getListaEventos() != null) {
+                ArrayList<Evento> eventos = usuario.getListaEventos();
                 for (Evento evento : eventos) {
-                    if (evento.getCodigo().equals(codigoEvento)) {
+                    if (evento != null && evento.getCodigo().equals(codigoEvento)) {
+                        
                         if (evento instanceof EventoDeportivo) {
                             String nuevoDesc = DescTextArea.getText();
                             String nuevaCantidad = CantidadTextbox.getText();
@@ -213,26 +262,56 @@ public class EditarEvento_AdminContenido extends javax.swing.JFrame {
                             } catch (NumberFormatException e) {
                                 JOptionPane.showMessageDialog(null, "Cantidad y Monto deben ser números válidos.");
                             }
-                        }
 
-                        if (evento instanceof EventoReligioso) {
-                            String nuevoDesc = DescTextArea.getText();
-                            String nuevaCantidad = CantidadTextbox.getText();
-                            String nuevoMonto = MontoTextbox.getText();
-                            String nuevoTitulo = TituloTextbox.getText();
+                            if (evento instanceof EventoReligioso) {
+                                nuevoDesc = DescTextArea.getText();
+                                nuevaCantidad = CantidadTextbox.getText();
+                                nuevoMonto = MontoTextbox.getText();
+                                nuevoTitulo = TituloTextbox.getText();
 
-                            try {
-                                int nuevaCantidadINT = Integer.parseInt(nuevaCantidad);
-                                double nuevaMontoDouble = Double.parseDouble(nuevoMonto);
+                                try {
+                                    int nuevaCantidadINT = Integer.parseInt(nuevaCantidad);
+                                    double nuevaMontoDouble = Double.parseDouble(nuevoMonto);
 
-                                funcionEvento.EditarEventoReligioso(codigoEvento, name, nuevoTitulo, nuevoDesc, selectedDate, nuevaMontoDouble, nuevaCantidadINT);
+                                    if (participantes != null) {
+                                        funcionEvento.EditarEventoReligioso(codigoEvento, name, nuevoTitulo, nuevoDesc, selectedDate, nuevaMontoDouble, nuevaCantidadINT, participantes);
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "No se han llenado los detalles de este evento.");
+                                    }
+                                } catch (NumberFormatException e) {
+                                    JOptionPane.showMessageDialog(null, "Cantidad y Monto deben ser números válidos.");
+                                }
+                            }
 
-                            } catch (NumberFormatException e) {
-                                JOptionPane.showMessageDialog(null, "Cantidad y Monto deben ser números válidos.");
+                            if (evento instanceof EventoMusical) {
+                                nuevoDesc = DescTextArea.getText();
+                                nuevaCantidad = CantidadTextbox.getText();
+                                nuevoMonto = MontoTextbox.getText();
+                                nuevoTitulo = TituloTextbox.getText();
+
+                                try {
+                                    int nuevaCantidadINT = Integer.parseInt(nuevaCantidad);
+                                    double nuevaMontoINT = Double.parseDouble(nuevoMonto);
+
+                                    if (miembrosInstrumentos != null && !miembrosInstrumentos.isEmpty()) {
+                                        funcionEvento.EditarEventoMusical(codigoEvento, name, nuevoTitulo, nuevoDesc, selectedDate, nuevaMontoINT, tipoMusical, nuevaCantidadINT, miembrosInstrumentos);
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "No se han llenado los detalles de los instrumentos.");
+                                    }
+                                } catch (NumberFormatException e) {
+                                    JOptionPane.showMessageDialog(null, "Cantidad y Monto deben ser números válidos.");
+                                }
                             }
                         }
-
-                        if (evento instanceof EventoMusical) {
+                    }
+                }
+            }
+        }
+        
+                for (Evento evento : eventosCancelados) {
+                    if (evento != null && evento.getCodigo().equals(codigoEvento)) {
+                        
+                        if (evento instanceof EventoDeportivo) {
                             String nuevoDesc = DescTextArea.getText();
                             String nuevaCantidad = CantidadTextbox.getText();
                             String nuevoMonto = MontoTextbox.getText();
@@ -242,73 +321,98 @@ public class EditarEvento_AdminContenido extends javax.swing.JFrame {
                                 int nuevaCantidadINT = Integer.parseInt(nuevaCantidad);
                                 double nuevaMontoINT = Double.parseDouble(nuevoMonto);
 
-                                funcionEvento.EditarEventoMusical(codigoEvento, name, nuevoTitulo, nuevoDesc, selectedDate, nuevaMontoINT, tipoMusical, nuevaCantidadINT);
-
+                                if (equipo1 != null || equipo2 != null || jugadores1 != null || jugadores2 != null) {
+                                    funcionEvento.EditarEventoDeportivo(codigoEvento, name, nuevoTitulo, nuevoDesc, selectedDate, nuevaCantidadINT, nuevaMontoINT, equipo1, equipo2, tipoDeporte, jugadores1, jugadores2);
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "No se han llenado los detalles.");
+                                }
                             } catch (NumberFormatException e) {
                                 JOptionPane.showMessageDialog(null, "Cantidad y Monto deben ser números válidos.");
                             }
+
+                            if (evento instanceof EventoReligioso) {
+                                nuevoDesc = DescTextArea.getText();
+                                nuevaCantidad = CantidadTextbox.getText();
+                                nuevoMonto = MontoTextbox.getText();
+                                nuevoTitulo = TituloTextbox.getText();
+
+                                try {
+                                    int nuevaCantidadINT = Integer.parseInt(nuevaCantidad);
+                                    double nuevaMontoDouble = Double.parseDouble(nuevoMonto);
+
+                                    if (participantes != null) {
+                                        funcionEvento.EditarEventoReligioso(codigoEvento, name, nuevoTitulo, nuevoDesc, selectedDate, nuevaMontoDouble, nuevaCantidadINT, participantes);
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "No se han llenado los detalles de este evento.");
+                                    }
+                                } catch (NumberFormatException e) {
+                                    JOptionPane.showMessageDialog(null, "Cantidad y Monto deben ser números válidos.");
+                                }
+                            }
+
+                            if (evento instanceof EventoMusical) {
+                                nuevoDesc = DescTextArea.getText();
+                                nuevaCantidad = CantidadTextbox.getText();
+                                nuevoMonto = MontoTextbox.getText();
+                                nuevoTitulo = TituloTextbox.getText();
+
+                                try {
+                                    int nuevaCantidadINT = Integer.parseInt(nuevaCantidad);
+                                    double nuevaMontoINT = Double.parseDouble(nuevoMonto);
+
+                                    if (miembrosInstrumentos != null && !miembrosInstrumentos.isEmpty()) {
+                                        funcionEvento.EditarEventoMusical(codigoEvento, name, nuevoTitulo, nuevoDesc, selectedDate, nuevaMontoINT, tipoMusical, nuevaCantidadINT, miembrosInstrumentos);
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "No se han llenado los detalles de los instrumentos.");
+                                    }
+                                } catch (NumberFormatException e) {
+                                    JOptionPane.showMessageDialog(null, "Cantidad y Monto deben ser números válidos.");
+                                }
+                            }
                         }
                     }
                 }
-            }
-        }
     }//GEN-LAST:event_ConfirmarBTNActionPerformed
 
     private void EditarDetallesBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarDetallesBTNActionPerformed
-        for (int indice = 0; indice < usuariosArray.size(); indice++) {
 
-            if (usuariosArray.get(indice).getUsuario().equals(name)) {
-
-                ArrayList<Evento> eventos = usuariosArray.get(indice).getListaEventos();
-
-                for (Evento evento : eventos) {
-                    if (evento.getCodigo().equals(codigoEvento)) {
-
-                        if (evento instanceof EventoDeportivo) {
-
-                            DetallesDeportivo pasar = new DetallesDeportivo(name, funcionEvento, codigoEvento);
-                            pasar.setVisible(true);
-                            pasar.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
-                            if (evento instanceof EventoMusical) {
-
-                                DetallesMusical pasar1 = new DetallesMusical(name, funcionEvento, codigoEvento);
-                                pasar1.setVisible(true);
-                                pasar1.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
-                            }
-
-                            if (evento instanceof EventoReligioso) {
-
-                                DetallesReligioso pasar2 = new DetallesReligioso(name, funcionEvento, codigoEvento);
-                                pasar2.setVisible(true);
-                                pasar2.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
-                            }
-
-                            System.out.println("Si existe y es de ese usuario");
-
-                        }
+    for (int indice = 0; indice < usuariosArray.size(); indice++) {
+        if (usuariosArray.get(indice).getUsuario().equals(name)) {
+            ArrayList<Evento> eventos = usuariosArray.get(indice).getListaEventos();
+            for (Evento evento : eventos) {
+                if (evento.getCodigo().equals(codigoEvento)) {
+                    if (evento instanceof EventoDeportivo) {
+                        DetallesDeportivo pasar = new DetallesDeportivo(name, funcionEvento, codigoEvento);
+                        pasar.setVisible(true);
+                        pasar.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                    } else if (evento instanceof EventoMusical) {
+                        DetallesMusical pasar1 = new DetallesMusical(name, funcionEvento, codigoEvento);
+                        pasar1.setVisible(true);
+                        pasar1.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                    } else if (evento instanceof EventoReligioso) {
+                        DetallesReligioso pasar2 = new DetallesReligioso(name, funcionEvento, codigoEvento);
+                        pasar2.setVisible(true);
+                        pasar2.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                     }
                 }
-                System.out.println("Probable no es de ese usuario");
             }
         }
+    }
     }//GEN-LAST:event_EditarDetallesBTNActionPerformed
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        
         JFrame frame = new JFrame();
         CalendarioPanel calendar = new CalendarioPanel(0, 0, usuariosArray, "", funcionUsuario);
         CustomDatePickerDialog dialog = new CustomDatePickerDialog(frame);
 
         dialog.setVisible(true);
 
-        System.out.println(selectedDate);
-
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd/MM/yy");
 
+        System.out.println(selectedDate);
+        
         if (selectedDate != null) {
-            System.out.println("No esta null.");
 
             int usuarioEleccion = JOptionPane.showConfirmDialog(
                     null,
@@ -325,9 +429,8 @@ public class EditarEvento_AdminContenido extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Se canceló la operación.");
                 frame.dispose();
             }
-        } else {
-            System.out.println("esta null");
         }
+        
     }//GEN-LAST:event_jLabel4MouseClicked
 
     public static void main(String args[]) {
@@ -357,7 +460,7 @@ public class EditarEvento_AdminContenido extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EditarEvento_AdminContenido(new ArrayList<Usuario>(), "", new UsuariosMetodos(), "").setVisible(true);
+                new EditarEvento_AdminContenido(new ArrayList<Usuario>(), "", new UsuariosMetodos(), "", new EventosMetodos()).setVisible(true);
             }
         });
     }
